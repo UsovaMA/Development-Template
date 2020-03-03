@@ -13,15 +13,18 @@ public:
 
   ~Complex();
 
-  double getRe();
-  double getIm();
-
   void output();
   Complex Add(const Complex& c);
 
   Complex& operator=(const Complex& c);
 
   bool operator==(const Complex& c);
+
+  friend bool operator==(const Complex& left, const Complex& right) {
+	  if (left.re == right.re && left.im == right.im) return true;
+	  else return false;
+  }
+
   bool operator!=(const Complex& c);
 
   Complex operator+(const Complex& c);
@@ -37,7 +40,7 @@ public:
   friend std::ostream& operator<<(std::ostream& stream, const Complex& c);
   friend std::istream& operator>>(std::istream& stream, Complex& c);
 
-public:
+private:
   double re;
   double im;
 };

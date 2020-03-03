@@ -14,14 +14,6 @@ Complex::~Complex() {
   im = 0.0;
 }
 
-double Complex::getRe() {
-  return re;
-}
-
-double Complex::getIm() {
-  return im;
-}
-
 Complex& Complex::operator=(const Complex& c) {
   (*this).re = c.re;
   im = c.im;
@@ -29,13 +21,17 @@ Complex& Complex::operator=(const Complex& c) {
 }
 
 bool Complex::operator==(const Complex& c) {
-  if (c.re == re && c.im == im) return true;
-  else return false;
+  if (c.re == re && c.im == im)
+	  return true;
+  else
+	  return false;
 }
 
 bool Complex::operator!=(const Complex& c) {
-  if (c.re != re || c.im != im) return true;
-  else return false;
+  if (c.re != re || c.im != im)
+	  return true;
+  else
+	  return false;
 }
 
 void Complex::output() {
@@ -76,8 +72,7 @@ Complex Complex::operator*(const Complex& c) {
 Complex Complex::operator/(const Complex& c) {
   Complex res;
   if (c.re == 0 && c.im == 0) {
-    std::cout << "Error: division by 0" << std::endl;
-    res = -1;
+	throw std::logic_error("Error: division by 0");
   }
   else {
     res.re = (re * c.re + im * c.im) / (pow(c.re, 2) + pow(c.im, 2));
