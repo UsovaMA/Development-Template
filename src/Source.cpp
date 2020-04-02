@@ -1,9 +1,10 @@
+#include "..\include\Hex.h"
 #pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <cstdlib>
-#include "Header.h"
+#include "Hex.h"
 using namespace std;
 
 
@@ -369,3 +370,9 @@ bool Hex::operator<=(const Hex& t) {
   }
   return 0;
 }
+
+Hex::~Hex()
+{
+  delete h;
+}
+
