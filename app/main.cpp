@@ -1,3 +1,4 @@
+// Copyright 2020 Serebrennikov
 #include <iostream>
 #include "ClassIntegrals.h"
 
@@ -5,10 +6,12 @@ using namespace std;
 
 int main() {
 
+  int _f;
+  double tmp;
   double s_sr = 0;
   Integrals c1;
-
-  cout << " The  equation is introduced in the Integrals.cpp" << endl << endl;
+  int numOffunc();
+  
   c1.input();
   cout << endl;
   cout << "1 - middle rectangle method" << endl;
@@ -44,6 +47,5 @@ int main() {
       }
     }
   }
-  
   system("pause");
 }

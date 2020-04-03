@@ -1,3 +1,4 @@
+// Copyright 2020 Serebrennikov
 #pragma once
 #include <iostream>
 
@@ -10,10 +11,11 @@ public:
   Integrals(int _a, int _b, int _n);
   Integrals(const Integrals& c);
 
-  void metod_centre();
-  void metod_left();
-  void metod_right();
-  void sr_znach();
+  
+  double metod_centre();
+  double metod_left();
+  double metod_right();
+  double sr_znach();
 
   void input();
 
@@ -22,3 +24,5 @@ private:
   int b;
   int n;  // kol-vo otrezkov razbieniya
 };
+
+int numOffunc();
