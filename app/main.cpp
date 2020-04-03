@@ -1,155 +1,82 @@
-﻿//
+﻿// Copyright 2020 <Diana Lukashuk>
 #include <iostream>
 #include <fstream>
-#include <string>
-#include <cstdlib>
-#include <windows.h>
-#include <stdexcept>
-#include "dict.h"
-#include "ALLDict.h"
+#include <clocale>
+#include "Hex.h"
+#include "Header.h"
 using namespace std;
 
-void meny1(bool a) {
-  if (a) {
-    cout << " ________________ " << endl;
-    cout << "| Make a choice  |" << endl;
-    cout << "|0- Exit         |" << endl;
-    cout << "|1- file input   |" << endl;
-    cout << "|2- Manual entery|" << endl;
-    cout << "|3- Next step    |" << endl;
-    cout << "|________________|" << endl;
-  }
-  else {
-    cout << " ________________ " << endl;
-    cout << "| Make a choice  |" << endl;
-    cout << "|0- Exit         |" << endl;
-    cout << "|1- file input   |" << endl;
-    cout << "|2- Manual entery|" << endl;
-    cout << "|________________|" << endl;
-  }
-}
-void meny2() {
-  cout << " __________________________________________________ " << endl;
-  cout << "| Make a choice                                    |" << endl;
-  cout << "|0- Exit                                           |" << endl;
-  cout << "|1- change the translation of the specified word   |" << endl;
-  cout << "|2- find out the translation of the selected word  |" << endl;
-  cout << "|3- check the presence of a word in the dictionary |" << endl;
-  cout << "|4- find out the number of words in the dictionary |" << endl;
-  cout << "|5- Last step<-------------------------------------|" << endl;
-  cout << "|6----------------------------------> Next step    |" << endl;
-  cout << "|__________________________________________________|" << endl;
-}
-void meny3() {
-  cout << " ______________________" << endl;
-  cout << "| Make a choice        |" << endl;
-  cout << "|0- Exit               |" << endl;
-  cout << "|1- file output        |" << endl;
-  cout << "|2- console dictionary |" << endl;
-  cout << "|3<-----Last step      |" << endl;
-  cout << "|______________________|" << endl;
-}
-
-//2) change the translation of the specified word,
-//3) find out the translation of the selected word,
-//4) check the presence of a word in the dictionary,
-//5) find out the number of words in the dictionary,
-
 int main() {
-  setlocale(LC_ALL, "Russian");
-  SetConsoleCP(1251);
-  SetConsoleOutputCP(1251);
-  Dict a("Словарь", "Dictionary");
-  Dict b;
-  ALLDict A;
-  //A.DopSTR(a);
-  //A.DopSTR(b);
-  //cout << A;
-  int i = 1;
-  int v;
-  string search_word, Sres;
-  meny1(0);
-  cin >> v;
-  if ((v > 2) || (v < 0))
-    throw std::logic_error("Error: incorrect choice\n");
-  while (i != 0) {
+  int i = 0;
+  cout << "Hexadecimal numbers" << endl;
+  Hex a("5FA", 0), b("5FA", 0);
+
+  while (i != 4) {
     switch (i) {
-    case 1:
-      if (v == 1) {
-        ifstream in;
-        in.open("input.txt");
-        string str;
-        while (getline(in, str)) {
-          a.OB(str);
-          A.DopSTR(a);
-        }
-        in.close();
-      }
-      if (v == 2) {
-        cin >> A;
-      }
-      i = 2;
-      if (v == 0)   i = 0;
+    case 0:
+      cout << " ________________ " << endl;
+      cout << "| Make a choice  |" << endl;
+      cout << "|1- Manual entery|" << endl;
+      cout << "|3- Guick check  |" << endl;
+      cout << "|4- Exit         |" << endl;
+      cout << "|________________|" << endl;
+      cin >> i;
       break;
-    case 2:
-      meny2();
-      cin >> v;
-      if ((v > 6) || (v < 0))
-        throw std::logic_error("Error: incorrect choice\n");
-      if (v == 1) {
-        cout << "Enter the word- ";
-        cin >> search_word;
-        cout << "Enter the change(translate) word- ";
-        cin >> Sres;
-        A.ChTran(search_word, Sres);
-        break;
-      }
-      if (v == 2) {
-        cout << "Enter the search word- ";
-        cin >> search_word;
-        cout << "Translate is" << A.Tran(search_word) << endl;
-        break;
-      }
-      if (v == 3) {
-        cout << "Enter the word- ";
-        cin >> search_word;
-        bool res = A.Poisk(search_word);
-        if (res) {
-          Sres = A.Tran(search_word);
-          cout << Sres << " -translation of this word" << endl;
-        }
-        else {
-          cout << "No, This word is not in the dictionary." << endl;
-        }
-        break;
-      }
-      if (v == 4) {
-        cout << "Size is " << A.getS() << endl;
-      }
-      if (v == 5) i = 1;
-      if (v == 6) i = 3;
-      if (v == 0) i = 0;
+    case 1:
+      cout << "Enter ferst number: ";
+      cin >> a;
+      cout << "Enter second number: ";
+      cin >> b;
+      cout << "Entered numbers: " << a << ", " << b << endl;
+      i = 5;
       break;
     case 3:
-      meny3();
-      cin >> v;
-      if (v == 0) i = 0;
-      if (v == 1) {
-        ofstream out;
-        out.open("output.txt");
-        for (int i = 0; i < A.getS(); i++) {
-          out << A << endl;
-        }
-        out.close();
+      cout << "number A " << a << ", number B " << b << endl;
+      cout << "number A + B = " << a + b << endl;
+      cout << "number A - B = " << a - b << endl;
+      cout << "A < B = " << (a < b);
+      cout << "   A <= B = " << (a <= b) << endl;
+      cout << "A > B = " << (a > b);
+      cout << "   A >= B = " << (a >= b) << endl;
+      cout << "(A == B) = " << (a == b);
+      cout << "   (A != B) = " << (a != b) << endl;
+      i = 0;
+      break;
+    case 5:
+      cout << " ________________ " << endl;
+      cout << "| Make a choice  |" << endl;
+      cout << "|1- Compare      |" << endl;
+      cout << "|2- A + B        |" << endl;
+      cout << "|3- A - B        |" << endl;
+      cout << "|4- Exit         |" << endl;
+      cout << "|5- Step back    |" << endl;
+      cout << "|________________|" << endl;
+      cin >> i;
+      if (i == 5) i = 0;
+      if (i == 3) {
+        cout << "number A - B = " << a - b << endl;
+        i = 5;
       }
-      if (v == 2) {
-          cout << A << endl;
-        }
-      if (v == 3) i = 2;
+      if (i == 2) {
+        cout << "number A + B = " << a + b << endl;
+        i = 5;
+      }
+      if (i == 1) {
+        if (a == b) cout << "A == B";
+        if (a != b) cout << "A != B";
+        cout << endl;
+        if (a > b) cout << "A > B   ";
+        if (a < b) cout << "A < B   ";
+        if (a >= b) cout << "A >= B   ";
+        if (a <= b) cout << "A <= B   ";
+        cout << endl;
+        i = 5;
+      }
+      break;
+    default:
+      i = 0;
       break;
     }
   }
   system("pause");
 }
-
-
