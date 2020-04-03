@@ -1,3 +1,4 @@
+// Copyright 2020 <Diana>
 //#pragma once
 #ifndef INCLUDE_D_H_
 #define INCLUDE_D_H_
@@ -25,4 +26,6 @@ public:
 private:
   std::string word, translation;
 };
+
+
 #endif  // INCLUDE_ADD_H_

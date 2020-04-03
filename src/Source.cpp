@@ -373,6 +373,5 @@ bool Hex::operator<=(const Hex& t) {
 
 Hex::~Hex()
 {
-  delete h;
 }
 

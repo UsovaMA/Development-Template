@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "add.h"
+using namespace std;
 
 TEST(Addition, CanAddTwoPositiveNumbers) {
   EXPECT_EQ(add(5, 5), 10);
