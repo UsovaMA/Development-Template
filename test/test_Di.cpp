@@ -4,13 +4,17 @@
 
 TEST(ALLDict, Comparison) {
   Dict a("Lola", "Ћола"), b("Lola", "Ћола");
-  ALLDict A(a), B(b);
+  ALLDict A, B;
+  A.DopSTR(a);
+  B.DopSTR(b);
   EXPECT_EQ(A == B, 1);
 }
 
 TEST(ALLDict, Can_it_stack_multiple_dictionaries) {
   Dict a("Lol", "Ћол"), b("Lola", "Ћола");
-  ALLDict A(a), B(b), C(a, b);
+  ALLDict A, B, C(a, b);
+  A.DopSTR(a);
+  B.DopSTR(b);
   EXPECT_EQ(A + B, C);
 }
 

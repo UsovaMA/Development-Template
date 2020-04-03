@@ -1,3 +1,4 @@
+// Copyright 2020 <Diana>
 #pragma once
 #ifndef INCLUDE_AD_H_
 #define INCLUDE_AD_H_
@@ -11,15 +12,14 @@ using namespace std;
 class ALLDict { // несколько 
 public:
   ALLDict();
-  ALLDict(int i);
   void ImS(int s);
   int getS();
   bool Poisk(string str);
   string Tran(string str);
   void ChTran(string str, string zam);
-  ALLDict(Dict a);
   void DopSTR(Dict a);
   ALLDict(Dict a, Dict b);
+  void add(Dict *D);
   ALLDict operator+(const ALLDict& t);
   ALLDict& operator=(const ALLDict& t);
   friend ostream& operator << (ostream& stream, const ALLDict& a);
@@ -37,7 +37,7 @@ public:
     }
     return 1;
   };
-  //~ALLDict();
+  ~ALLDict();
 private:
   Dict * ALLD;
   int size;

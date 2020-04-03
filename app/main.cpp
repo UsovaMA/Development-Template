@@ -1,3 +1,4 @@
+ï»¿//
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -17,7 +18,8 @@ void meny1(bool a) {
     cout << "|2- Manual entery|" << endl;
     cout << "|3- Next step    |" << endl;
     cout << "|________________|" << endl;
-  } else {
+  }
+  else {
     cout << " ________________ " << endl;
     cout << "| Make a choice  |" << endl;
     cout << "|0- Exit         |" << endl;
@@ -57,8 +59,12 @@ int main() {
   setlocale(LC_ALL, "Russian");
   SetConsoleCP(1251);
   SetConsoleOutputCP(1251);
-  Dict a("Ñëîâàðü", "Dictionary");
-  ALLDict A(a);
+  Dict a("Ð¡Ð»Ð¾Ð²Ð°Ñ€ÑŒ", "Dictionary");
+  Dict b;
+  ALLDict A;
+  //A.DopSTR(a);
+  //A.DopSTR(b);
+  //cout << A;
   int i = 1;
   int v;
   string search_word, Sres;
@@ -82,10 +88,8 @@ int main() {
       if (v == 2) {
         cin >> A;
       }
-      meny1(1);
-      cin >> v;
-      if (v == 3) i = 2;
-      if (v==0)   i = 0;
+      i = 2;
+      if (v == 0)   i = 0;
       break;
     case 2:
       meny2();
@@ -109,9 +113,9 @@ int main() {
       if (v == 3) {
         cout << "Enter the word- ";
         cin >> search_word;
-        bool res=A.Poisk(search_word);
+        bool res = A.Poisk(search_word);
         if (res) {
-          Sres=A.Tran(search_word);
+          Sres = A.Tran(search_word);
           cout << Sres << " -translation of this word" << endl;
         }
         else {
@@ -120,7 +124,7 @@ int main() {
         break;
       }
       if (v == 4) {
-        cout << "Size is "<< A.getS() << endl;
+        cout << "Size is " << A.getS() << endl;
       }
       if (v == 5) i = 1;
       if (v == 6) i = 3;
@@ -130,7 +134,7 @@ int main() {
       meny3();
       cin >> v;
       if (v == 0) i = 0;
-      if (v == 1){
+      if (v == 1) {
         ofstream out;
         out.open("output.txt");
         for (int i = 0; i < A.getS(); i++) {
@@ -139,13 +143,13 @@ int main() {
         out.close();
       }
       if (v == 2) {
-        for (int i = 0; i < A.getS(); i++) {
           cout << A << endl;
         }
-      }
       if (v == 3) i = 2;
       break;
     }
   }
   system("pause");
 }
+
+
