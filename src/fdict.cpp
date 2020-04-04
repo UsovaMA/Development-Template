@@ -275,6 +275,7 @@ void  ALLDict::DopSTR(Dict a) {
   (*this) = res;
 }
 ALLDict::ALLDict(Dict a, Dict b) {
+  delete[] ALLD;
   ALLD = new Dict[2];
   size = 2;
   ALLD[0] = a;
@@ -300,6 +301,7 @@ ALLDict ALLDict::operator+(const ALLDict& t) {
 }
 ALLDict& ALLDict::operator=(const ALLDict& t) {
   size = t.size;
+  delete[] ALLD;
   ALLD = new Dict[t.size];
   for (int i = 0; i < t.size; i++) {
     ALLD[i] = t.ALLD[i];
