@@ -12,9 +12,10 @@ public:
   Hex();
   void correct();
   friend Hex sum(Hex a, Hex b);
-  Hex(unsigned char* a, bool m);
+  Hex(unsigned char a, bool m);
   Hex(unsigned char *a, int s, bool m);
   Hex(string a, bool m);
+  Hex(const Hex& a);
   Hex operator+(const Hex& t);
   Hex operator-(const Hex& t);
   Hex& operator=(const Hex& t);

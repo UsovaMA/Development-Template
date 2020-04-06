@@ -12,7 +12,7 @@ Hex::Hex() {
   h = new unsigned char[2];
   h[0] = '0';
   h[1] = '\0';
-  size = 2;
+  size = 1;
   zn = 0;
 }
 
@@ -24,7 +24,7 @@ void Hex::correct() {
   }
   int ch = 0;
   for (int i = 0; i < size; i++) {
-    if (h[i] != '0') { ch++; continue; }
+    if (h[i] != '0') { ch++; break; }
     ch = ch + h[i];
   }
   if (ch == 0) Hex();
@@ -34,6 +34,7 @@ void Hex::correct() {
         h[i] = h[i + 1];
       }
       size--;
+      h = (unsigned char*)realloc(h, size);
     }
   }
   for (int i = 0; i < size; i++) {
@@ -42,13 +43,13 @@ void Hex::correct() {
       cin >> h[i];
     }
   }
-  if (h[size + 1] != '\0') h[size + 1] = '\0';
+  if (h[size] != '\0') h[size] = '\0';
 }
 
-Hex::Hex(unsigned char* a, bool m) {
+Hex::Hex(unsigned char a, bool m) {
   size = 1;
   h = new unsigned char[size + 1];
-  h[0] = a[0];
+  h[0] = a;
   h[1] = '\0';
   zn = m;
   correct();
@@ -70,7 +71,17 @@ Hex::Hex(string a, bool m) {
     h[i] = a[i];
   }
   zn = m;
-  correct();
+  //correct();
+}
+
+Hex::Hex(const Hex& a) {
+  Hex::size = a.size;
+  h = new unsigned char[size + 1];
+  for (int i = 0; i < size; i++) {
+    h[i] = a.h[i];
+  }
+  h[size] = '\0';
+  zn = a.zn;
 }
 
 ostream& operator << (ostream& stream, const Hex& a) {
@@ -135,7 +146,7 @@ int max(int a, int b) {
 
 
 Hex sum(Hex a, Hex b) {
-  int SizeOb = max(a.size, b.size) + 1;
+  int SizeOb = max(a.size, b.size);
   unsigned char*T, *T1;
   T = new unsigned char[SizeOb + 1];
   T1 = new unsigned char[SizeOb + 1];
@@ -218,7 +229,7 @@ Hex sum(Hex a, Hex b) {
 }
 Hex Hex::operator+(const Hex& t) {
   Hex res = sum((*this), t);
-  res.correct();
+  //res.correct();
   return res;
 }
 
@@ -263,10 +274,11 @@ Hex Hex::operator-(const Hex& t) {
 Hex& Hex::operator=(const Hex& t) {
   size = t.size;
   zn = t.zn;
-  h = new unsigned char[size];
+  h = new unsigned char[size + 1];
   for (int i = 0; i < size; i++) {
     h[i] = t.h[i];
   }
+  h[size] = '\0';
   return *this;
 }
 
@@ -373,5 +385,6 @@ bool Hex::operator<=(const Hex& t) {
 
 Hex::~Hex()
 {
+  delete[] h;
+  size = 0;
 }
-
