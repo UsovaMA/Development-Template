@@ -1,4 +1,6 @@
 ﻿#include "..\include\ALLDict.h"
+#include "..\include\dict.h"
+#include "..\include\ALLDict.h"
 #include "dict.h"
 #include "ALLDict.h"
 #include <iostream>
@@ -13,10 +15,10 @@ bool en(std::string str) {
   int s = std::size(str);
   for (int i = 1; i < s; i++) {
     if ((str[0] >= 'А') && (str[0] <= 'Я') || (str[0] >= 'а') && (str[0] <= 'я')) {
-      return 1;// error
+      return 1;  // error
     }
   }
-  return 0; //ok
+  return 0;  // ok
 }
 bool en(char a) {
   if ((a >= 'A') && (a <= 'Z') || (a >= 'a') && (a <= 'z')) return 1;
@@ -26,10 +28,10 @@ bool ru(std::string str) {
   int s = std::size(str);
   for (int i = 1; i < s; i++) {
     if ((str[0] >= 'A') && (str[0] <= 'Z') || (str[0] >= 'a') && (str[0] <= 'Z')) {
-      return 1;// error
+      return 1;  // error
     }
   }
-  return 0; //ok
+  return 0;  // ok
 }
 bool ru(char a) {
   if ((a >= 'А') && (a <= 'Я') || (a >= 'а') && (a <= 'я')) return 1;
@@ -37,15 +39,16 @@ bool ru(char a) {
 }
 bool definition(std::string str) {
   int s = std::size(str);
-  if ((str[0] <= 'Z') && (str[0] >= 'A') || (str[0] <= 'z') && (str[0] >= 'a'))
+  if ((str[0] <= 'Z') && (str[0] >= 'A') || (str[0] <= 'z') && (str[0] >= 'a')) {
     return 1;
-  else return 0;
+  } else {
+  return 0;
+  }
 }
 std::string del_ferst(std::string str) {
   int s = std::size(str);
-  
   while (!((ru(str[0])) || (en(str[0])))) {
-    if(s==1) return str;
+    if (s == 1) return str;
     for (int i = 1; i < (std::size(str)); i++) {
       str[i - 1] = str[i];
     }
@@ -64,6 +67,10 @@ Dict::Dict() {
   word = "Cлово";
   translation = "Word";
 }
+Dict::Dict(const Dict & a) {
+  word = a.word;
+  translation = a.translation;
+}
 string Dict::getW() {
   return word;
 }
@@ -74,16 +81,16 @@ int ALLDict::getS() {
   return size;
 }
 
-bool ALLDict::Poisk(string str) { //  bool Poisk(string str);
-  bool leng = definition(str); //1 en, 0 ru
+bool ALLDict::Poisk(string str) {  // bool Poisk(string str);
+  bool leng = definition(str);  // 1 en, 0 ru
   string g;
   if (leng) {
-    for (int i = 0; i < std::size(str); i++) {
+    for (int i = 0; i < size; i++) {
       g = ALLD[i].getT();
       if (g== str) return 1;
     }
   } else {
-    for (int i = 0; i < std::size(str); i++) {
+    for (int i = 0; i < size; i++) {
       g = ALLD[i].getW();
       if (g == str) return 1;
     }
@@ -91,7 +98,7 @@ bool ALLDict::Poisk(string str) { //  bool Poisk(string str);
   return 0;
 }
 string ALLDict::Tran(string str) {
-  bool leng = definition(str); //1 en, 0 ru
+  bool leng = definition(str);  // 1 en, 0 ru
   string g, r;
   if (leng) {
     for (int i = 0; i < std::size(str); i++) {
@@ -113,7 +120,7 @@ string ALLDict::Tran(string str) {
   return "-";
 }
 void ALLDict::ChTran(string str, string zam) {
-  bool leng = definition(str); //1 en, 0 ru
+  bool leng = definition(str);  // 1 en, 0 ru
   string g, r;
   if (leng) {
     for (int i = 0; i < size; i++) {
@@ -139,31 +146,40 @@ string getW(Dict a) {
 string getT(Dict a) {
   return a.translation;
 }
-void Dict::OB (std::string a) {
+void Dict::OB(std::string a) {
   string sch = a;
   sch = del_ferst(sch);
   int i1, i2;
   bool l1, l2;
   l1 = definition(sch);
   l2 = !(l1);
-  //0-русский, 1-английский
-  //находим стыковочные смволы 
+  // 0-Russian, 1-English
+  // find docking symbols
   if (l1 == 0) {
-    for (int i = 0; i < size(sch); i++) {
-      if (en(sch[i])) i1 = i;
-      if (ru(sch[i])) { i2 = i; break; }
-    }
-  }
-  else {
     for (int i = 0; i < size(sch); i++) {
       if (ru(sch[i])) i1 = i;
       if (en(sch[i])) { i2 = i; break; }
     }
+  } else {
+    for (int i = 0; i < size(sch); i++) {
+      if (en(sch[i])) i2 = i;
+      if (ru(sch[i])) { i1 = i; break; }
+    }
   }
-  //делим строку
-  ImW(sch.substr(0, i1 + 1));
-  ImT(sch.substr(i2));
-  correct();
+  // divide the line
+  if ((i1 > -1) && (i2 > -1)) {
+    if (i1 < i2) {  // word, translation
+      word = (sch.substr(0, i1 + 1));
+      translation = (sch.substr(i2));
+    } else {
+      word = (sch.substr(0, i2 + 1));
+      translation = (sch.substr(i1));
+    } correct();
+  } else {
+    cout << "two identical languages" << endl;
+    word = ("Ошибка");
+    translation = ("ERROR");
+  }
 }
 void Dict::ImW(std::string a) {
   word = a;
@@ -187,13 +203,13 @@ istream& operator >> (istream& stream, Dict &a) {
   getline(cin, sch);
   }
   sch = del_ferst(sch);
-  int i1=-1, i2=-1;
+  int i1 = -1, i2 = -1;
   bool l1, l2;
   l1 = definition(sch);
-  l2= !(l1);
-  //0-русский, 1-английский
-  //находим стыковочные смволы 
-  if (l1 == 0) { 
+  l2 = !(l1);
+  // 0-Russian, 1-English
+  // find docking symbols
+  if (l1 == 0) {
     for (int i = 0; i < size(sch); i++) {
     if (ru(sch[i])) i1 = i;
     if (en(sch[i])) { i2 = i; break; }
@@ -204,7 +220,7 @@ istream& operator >> (istream& stream, Dict &a) {
     if (ru(sch[i])) { i1 = i; break; }
     }
   }
-  //делим строку
+  // divide the line
   if ((i1 > -1) && (i2 > -1)) {
     if (i1 < i2) {
       a.ImW(sch.substr(0, i1 + 1));
@@ -214,19 +230,19 @@ istream& operator >> (istream& stream, Dict &a) {
       a.ImT(sch.substr(i1));
     } a.correct();
   } else {
-    cout << "ERROR with number" << endl;
+    cout << "two identical languages" << endl;
     a.ImW("Ошибка");
     a.ImT("ERROR");
   }
   return stream;
 }
-void Dict::correct() { 
-  //редактор первого символа (w)
+void Dict::correct() {
+  // first character editor (w)
   word = del_ferst(word);
   int s = std::size(word);
-  //редактор последнего символа (w)
+  // last character editor (w)
   if (s > 1) {
-    while (!((ru(word[s-1]))||(en(word[s - 1])))) {
+    while (!((ru(word[s-1])) || (en(word[s - 1])))) {
       if (s > 1) {
         word.resize(s - 1);
         s = std::size(word);
@@ -234,35 +250,44 @@ void Dict::correct() {
     }
   }
 
-  //редактор первого символа (t)
+  // first character editor (t)
   translation = del_ferst(translation);
   s = std::size(translation);
-  //редактор последнего символа (t)
+  // last character editor (t)
   if (s > 1) {
     while (!((ru(translation[s - 1])) || (en(translation[s - 1])))) {
       translation.resize(s - 1);
       s = std::size(translation);
     }
   }
-  //determine the language 
-  bool language_w= definition(word), language_t = definition(translation); //0-русский, 1-английский
-  if (language_w == language_t)  cout << "ERROR! Two identical languages" << endl;
-  else {  
-    if (language_w) { 
+  // determine the language
+  bool language_w = definition(word), language_t = definition(translation);
+  // 0-Russian, 1-English
+  if (language_w == language_t) {
+  cout << "ERROR! Two identical languages" << endl;
+  } else {
+    if (language_w) {
     std:string dop = word;
     word = translation;
     translation = dop;
     }
   }
-  //word=ru, translation=en;
+  // word=ru, translation=en;
 }
 
 ALLDict::ALLDict() {
   ALLD = 0;
   size = 0;
 }
-void ALLDict::ImS(int s) {
-  size = s;
+ALLDict::ALLDict(const ALLDict & a) {
+  if (size >= 0) {
+    delete[] ALLD;
+  }
+  size = a.size;
+  ALLD = new Dict[a.size];
+  for (int i = 0; i < size; i++) {
+    ALLD[i] = a.ALLD[i];
+  }
 }
 void  ALLDict::DopSTR(Dict a) {
   ALLDict res;
@@ -275,15 +300,20 @@ void  ALLDict::DopSTR(Dict a) {
   (*this) = res;
 }
 ALLDict::ALLDict(Dict a, Dict b) {
-  delete[] ALLD;
   ALLD = new Dict[2];
   size = 2;
   ALLD[0] = a;
   ALLD[1] = b;
 }
+ALLDict::ALLDict(Dict a) {
+  ALLD = new Dict[1];
+  size = 1;
+  ALLD[0] = a;
+}
+
 ALLDict ALLDict::operator+(const ALLDict& t) {
   ALLDict res;
-  res.size=size+t.size;
+  res.size = size+t.size;
   res.ALLD = new Dict[res.size];
   for (int I = 0; I < res.size; I++) {
     int i = 0;
@@ -292,7 +322,7 @@ ALLDict ALLDict::operator+(const ALLDict& t) {
       i++;
     }
     i = 0;
-    for (; I < t.size; I++) {
+    for (; I < res.size; I++) {
       res.ALLD[I] = t.ALLD[i];
       i++;
     }
@@ -301,7 +331,7 @@ ALLDict ALLDict::operator+(const ALLDict& t) {
 }
 ALLDict& ALLDict::operator=(const ALLDict& t) {
   size = t.size;
-  delete[] ALLD;
+  if (ALLD) { delete[] ALLD; }
   ALLD = new Dict[t.size];
   for (int i = 0; i < t.size; i++) {
     ALLD[i] = t.ALLD[i];
@@ -314,25 +344,25 @@ ostream& operator << (ostream& stream, const ALLDict& a) {
     cout << a.ALLD[i].getW() << " - " << a.ALLD[i].getT() << endl;
   }
   return stream;
- }
+}
 istream& operator >> (istream& stream, ALLDict& a) {
   cout << "How many words do you want input?  ";
   stream >> a.size;
   if (a.size <= 0)
     throw std::logic_error("Error: incorrect choice\n");
   a.ALLD = new Dict[a.size];
-  cout << "Words can be entered in any order, through any characters" << endl;
+  cout << "example- Russia Россия" << endl;
   for (int i = 0; i < a.size; i++) {
     cin >> a.ALLD[i];
   }
   return stream;
- }
+}
 
 Dict::~Dict() {
-
 }
-  
+
 ALLDict::~ALLDict() {
   delete[] ALLD;
-  size=0;
+  size = 0;
 }
+

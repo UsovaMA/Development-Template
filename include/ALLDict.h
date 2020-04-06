@@ -9,9 +9,10 @@
 #include "dict.h"
 using namespace std;
 
-class ALLDict { // несколько 
-public:
+class ALLDict {  // Dictionary
+ public:
   ALLDict();
+  ALLDict(const ALLDict &a);
   void ImS(int s);
   int getS();
   bool Poisk(string str);
@@ -19,7 +20,7 @@ public:
   void ChTran(string str, string zam);
   void DopSTR(Dict a);
   ALLDict(Dict a, Dict b);
-  void add(Dict *D);
+  ALLDict(Dict a);
   ALLDict operator+(const ALLDict& t);
   ALLDict& operator=(const ALLDict& t);
   friend ostream& operator << (ostream& stream, const ALLDict& a);
@@ -28,19 +29,24 @@ public:
     int a = 0;
     if (left.size == right.size) {
       for (int i = 0; i < left.size; i++) {
-        if (left.ALLD[i].getW() == right.ALLD[i].getW())
+        if (left.ALLD[i].getW() == right.ALLD[i].getW()) {
           if (left.ALLD[i].getT() == right.ALLD[i].getT()) {
             a++;
+          } else {
+            return 0;
           }
-          else return 0;
+        }
       }
     }
     return 1;
-  };
+  }
   ~ALLDict();
-private:
+
+ private:
   Dict * ALLD;
   int size;
 };
+bool en(std::string str);
+bool definition(std::string str);
 
-#endif  
+#endif

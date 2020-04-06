@@ -1,7 +1,7 @@
 // Copyright 2020 <Diana>
-//#pragma once
-#ifndef INCLUDE_D_H_
-#define INCLUDE_D_H_
+  // #pragma once
+#ifndef INCLUDE_DICT_H_
+#define INCLUDE_DICT_H_
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,8 +9,9 @@
 using namespace std;
 
 class Dict { //слово-перевод
-public:
+ public:
   Dict();
+  Dict(const Dict &a);
   Dict(std::string a, std::string b);
   void OB(std::string a);
   string getW();
@@ -23,9 +24,9 @@ public:
   friend ostream& operator << (ostream& stream, const Dict& a);
   friend istream& operator >> (istream& stream, Dict& a);
   ~Dict();
-private:
+
+ private:
   std::string word, translation;
 };
 
-
-#endif  // INCLUDE_ADD_H_
+#endif  // INCLUDE_DICT_H_

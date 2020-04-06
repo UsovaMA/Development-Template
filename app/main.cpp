@@ -1,4 +1,4 @@
-﻿//
+﻿  // Copyright 2020 <Diana>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -18,8 +18,7 @@ void meny1(bool a) {
     cout << "|2- Manual entery|" << endl;
     cout << "|3- Next step    |" << endl;
     cout << "|________________|" << endl;
-  }
-  else {
+  } else {
     cout << " ________________ " << endl;
     cout << "| Make a choice  |" << endl;
     cout << "|0- Exit         |" << endl;
@@ -36,8 +35,7 @@ void meny2() {
   cout << "|2- find out the translation of the selected word  |" << endl;
   cout << "|3- check the presence of a word in the dictionary |" << endl;
   cout << "|4- find out the number of words in the dictionary |" << endl;
-  cout << "|5- Last step<-------------------------------------|" << endl;
-  cout << "|6----------------------------------> Next step    |" << endl;
+  cout << "|5----------------------------------> Next step    |" << endl;
   cout << "|__________________________________________________|" << endl;
 }
 void meny3() {
@@ -50,21 +48,15 @@ void meny3() {
   cout << "|______________________|" << endl;
 }
 
-//2) change the translation of the specified word,
-//3) find out the translation of the selected word,
-//4) check the presence of a word in the dictionary,
-//5) find out the number of words in the dictionary,
+
 
 int main() {
   setlocale(LC_ALL, "Russian");
-  SetConsoleCP(1251);
-  SetConsoleOutputCP(1251);
+    // SetConsoleCP(1251);
+    // SetConsoleOutputCP(1251);
   Dict a("Словарь", "Dictionary");
   Dict b;
   ALLDict A;
-  //A.DopSTR(a);
-  //A.DopSTR(b);
-  //cout << A;
   int i = 1;
   int v;
   string search_word, Sres;
@@ -94,7 +86,7 @@ int main() {
     case 2:
       meny2();
       cin >> v;
-      if ((v > 6) || (v < 0))
+      if ((v > 5) || (v < 0))
         throw std::logic_error("Error: incorrect choice\n");
       if (v == 1) {
         cout << "Enter the word- ";
@@ -117,8 +109,7 @@ int main() {
         if (res) {
           Sres = A.Tran(search_word);
           cout << Sres << " -translation of this word" << endl;
-        }
-        else {
+        } else {
           cout << "No, This word is not in the dictionary." << endl;
         }
         break;
@@ -126,8 +117,7 @@ int main() {
       if (v == 4) {
         cout << "Size is " << A.getS() << endl;
       }
-      if (v == 5) i = 1;
-      if (v == 6) i = 3;
+      if (v == 5) i = 3;
       if (v == 0) i = 0;
       break;
     case 3:
