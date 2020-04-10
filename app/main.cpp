@@ -1,87 +1,123 @@
-#include <iostream>
-#include "MatrixClass.h"
-#include <random>
-#include <chrono>
-#include <fstream>
-
-using namespace std;
-
-int** generator(int size) {
-  int**toGen = new int*[size];
-  for (int i = 0; i < size; ++i) {
-    toGen[i] = new int[size];
-  }
-  mt19937 generator(chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
-  uniform_int_distribution<> uid(0, 100);
-  for (int j = 0; j < size; ++j) {
-    for (int i = 0; i < size; ++i) {
-      toGen[j][i] = uid(generator);
-    }
-  }
-  return toGen;
-}
-
-void print(int**arr, int size) {
-  for (int i = 0; i < size; ++i) {
-    for (int j = 0; j < size; ++j) {
-      cout << arr[i][j] << " ";
-    }
-    cout << "\n" << "";
-  }
-}
-
+#include "DictionaryClass.h"
+#include "vector"
+#include "iostream"
+#include "string"
 
 int main() {
-  //Создание матриц
-  Matrix a = Matrix(5);
-  Matrix b = Matrix(4);
+  setlocale(LC_ALL, "Russian");
+  //Работа со словами
 
-  //инициализация некоторым массивом (подходящего размера)
-  a.init(5, generator(5));
-  //инициализация нулями
-  b.init();
-  //копией другой матрицы
-  Matrix c = Matrix(a);
+  //Создание слова
+  auto word1 = new Word(); //без перевода и слова
+  auto word2 = new Word("cat", "кот"); //слово и один перевод
+  auto word3 = new Word("cake", vector<string>{"торт", "пирожное"}); //слово и несколько перводов
 
-  //сумма двух матриц
-  Matrix d = a + c;
-  d += a;
+  //установить слово
+  word1->setWord("dog");
 
-  //Индексация
-  int number = d(2, 2);
-  //d(6,6) - вызовет ошибку out_of_range
+  //уставновить перевод(заменяет имеющийся) (можно задать несколько переводов вектором)
+  word1->setTranslation("собака");
 
-  //вывод матрицы в поток
-  cout << d;
-  //вывод матрицы в файл
-  d.out("Dmatrix.txt");
+  //добавить перевод(если такого еще нет, добавит) (можно задать несколько переводов вектором)
+  word1->addTranslation("собачка");
 
-  //считывание матрицы откуда либо
-  Matrix e = Matrix::in("Dmatrix.txt");
-  e(0, 0) = 100; e(1, 1) = 100;
-  e.out("Ematrix.txt");
+  word3->setTranslation(vector<string>{"торт123", "!@#."}); //строки не из букв не будут допущены
 
-  //или из открытого файла
-  fstream someFile;
-  someFile.open("Ematrix.txt", fstream::in);
-  if (someFile.is_open()) {
-    Matrix k = Matrix();
-    someFile >> k;
+  //Получить значение слова
+  string val = word1->getWord();
+
+  //Получить vector переводов
+  vector<string> translations = word1->getTranslations();
+
+
+  //Работа со словарем
+
+  //Пустой словарь
+  auto dictionary = new Dictionary();
+
+  //Словарь из файла
+
+  //**Все операции над словарем возвращают true/false означающие успех или неудачу операции**
+
+  //Добавить слова в словарь
+  dictionary->addWord(word1);
+  dictionary->addWord(word2);
+  dictionary->addWord(word3);
+  //изменения на слове влияют на него внутри словаря (если они добавлены, разумеется)
+  word1->addTranslation("пес");
+
+  //Если слово с таким значением уже существует, оно будет полностью перезаписано
+  auto word4 = new Word("cat", "кошка");
+  dictionary->addWord(word4);
+
+  //Используя специальный метод добавления слова, в случае его существования в словаре, переводы будут смешаны
+  dictionary->mergeAddWord(word2);
+
+  //проверить наличие слова в словаре (0 - если слова нет, иначе его id)
+  dictionary->find("cat");
+
+  //Получить ссылку на слово в словаре (перед этим желательно проверить его наличие в словаре)
+  if (dictionary->find("dog")) auto word5 = dictionary->get("dog");
+
+  //Узнать количество слов в словаре
+  int amount = dictionary->wordsCount();
+
+  //Записать словарь со всеми изменениями в текстовый файл (.txt)
+  dictionary->out("myDictionary.txt");
+
+  //Получить словарь из файла
+  auto inDictionary = new Dictionary("myDictionary.txt");
+
+  //Можно полностью переписать уже готовый
+  //dictionary->in("myDictionary.txt");
+
+  //совершить некоторые действия со словарем
+  if (inDictionary->find("cake")) {
+    Word* myWord = inDictionary->get("cake");
+    myWord->setTranslation("кекс");
   }
+  auto word6 = new Word("beauty", "красота");
+  inDictionary->mergeAddWord(word6);
 
-  //Умножение матриц (range_error в случае несопостовимих размеров матриц)
-  Matrix f = d * e;
-  f *= a;
+  //вновь записать его куда либо
+  inDictionary->out("changedDictionary.txt");
 
-  //Умножение на скаляр
-  Matrix g = f * 3;
-  f *= 2;
+  //Слияние словарей
+  auto mergeDictionary1 = new Dictionary();
+  mergeDictionary1->addWord(new Word("foraging", "фуражировка"));
+  mergeDictionary1->addWord(new Word("steelmaker", vector<string>{"сталевар", "металлург"}));
 
-  //Диагональное преобладание
-  if (f.diagonalPrevalence()) std::cout << "f matrix has diagonal prevalence" << std::endl;
+  //слияние с проинициализированным ранее
+  mergeDictionary1->merge(dictionary);
+  mergeDictionary1->out("firstMerge.txt");
 
-  //Транспонирование
-  a.transpose();
+  auto mergeDictionary2 = new Dictionary();
+  mergeDictionary2->addWord(new Word("mindless", vector<string>{"бессмысленный", "глупый"}));
+  mergeDictionary2->addWord(new Word("capsule", "капсула"));
 
+  //слияние с словарем из файла
+  mergeDictionary2->merge("changedDictionary.txt");
+  mergeDictionary2->out("secondMerge.txt");
+
+  //слить два словаря в новый с помощью "+"
+  Dictionary md1 = *mergeDictionary1;
+  Dictionary md2 = *mergeDictionary2;
+  Dictionary md3 = md1 + md2;
+  md3.out("thirdMerge.txt");
+
+  //перегрузка присваивания
+
+  //через оператор присваивания
+  auto copiedDict1 = md1;
+  copiedDict1.addWord(new Word("astronomy", "астрономия"));
+  //через конструктор
+  auto copiedDict2 = Dictionary(md1);
+  copiedDict2.addWord(new Word("hotel", "гостиница"));
+
+  //внесенные изменения не влияют на словарь-основу (в выходном файле не должно быть слов astronomy или hotel)
+  md1.out("firstMerge.txt");
+
+  copiedDict1.out("firstCopy.txt");
+  copiedDict2.out("secondCopy.txt");
   return 0;
 }
