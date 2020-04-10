@@ -1,20 +1,25 @@
-#include"Tasc_2.h"
-
+#include "Octal.h"
 int main() {
-  Octal a = "5555555";
-  Octal b = "5555555";
-  Octal c;
-  cin >> c;
+
+  Octal a = "17";
+  Octal b = "2";
+  Octal c, f;
+  cout << "a =  " ;
   cout << a;
-  cout << endl;
+  cout << "b =  ";
   cout << b;
-  cout << endl;
-  cout << c << endl;
+  cout << "a - b= " ;
+  c = a - b;
+  cout << c;
+  cout << "a + b= " ;
+  c = a + b;
+  cout << c;
+  
   if (a == b) {
-    cout << "ravno ";
+    cout << " a pavno b";
   }
   else {
-    cout << "ne ravno ";
+    cout << "a ne ravno b";
   }
   getchar();
   getchar();
