@@ -1,7 +1,6 @@
 #ifndef TASK3_DICTIONARYCLASS_H
 #define TASK3_DICTIONARYCLASS_H
 
-
 #include <string>
 #include <vector>
 
