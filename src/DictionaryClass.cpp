@@ -159,7 +159,7 @@ void Dictionary::destroy() {
 }
 
 Dictionary::~Dictionary() {
-  //    std::cout<<"dictionary destroyed"<<std::endl;
+std::cout<<"dictionary destroyed"<<std::endl;
 }
 
 bool Dictionary::merge(Dictionary *toMerge) {
