@@ -19,7 +19,7 @@ endif()
 set(LINTING_APP ${CMAKE_SOURCE_DIR}/3rdparty/utils/cpplint.py)
 set(LINTING_COMMAND python ${LINTING_APP} --extensions=cpp,hpp,h,cc,c)
 
-include_directories(include)
+include_directories(include) 
 
 add_subdirectory(src)
 add_subdirectory(app)
