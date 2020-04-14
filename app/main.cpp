@@ -2,15 +2,24 @@
 #include <iostream>
 #include <fstream>
 #include <clocale>
-#include "Hex.h"
-#include "Header.h"
+#include "Contacts.h"
+#include "AllContact.h"
+#include "FUN.h"
+#include "windows.h"
 using namespace std;
 
 int main() {
+  setlocale(LC_ALL, "Rus");
+  SetConsoleCP(1251);
+  SetConsoleOutputCP(1251);
   int i = 0;
-  cout << "Hexadecimal numbers" << endl;
-  Hex a("5FA", 0), b("5FA", 0);
-
+  //exampleIn();
+  Contact a("Mary", "I", "Sh");
+  AllContact A;
+  A.DopСon(a);
+  int s = A.getSize();
+  
+  /*Hex a("5FA", 0), b("5FA", 0);
   while (i != 4) {
     switch (i) {
     case 0:
@@ -77,6 +86,6 @@ int main() {
       i = 0;
       break;
     }
-  }
+  }*/
   system("pause");
 }
