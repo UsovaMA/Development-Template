@@ -21,6 +21,7 @@ int main() {
   else {
     cout << "a ne ravno b";
   }
+
   getchar();
   getchar();
   return 0;

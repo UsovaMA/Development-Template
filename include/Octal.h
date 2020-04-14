@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cmath>
+#include<fstream>
 
 using namespace std;
 class Octal {
