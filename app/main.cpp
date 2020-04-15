@@ -1,6 +1,15 @@
-#include "add.h"
+#include "octal.h"
 #include <iostream>
 
 int main() {
-  std::cout << "5 + 5 = " << add(5, 5) << std::endl;
+  Octal res("0", 5);
+  //ofstream fout("output.txt");
+ // fout << res;
+ // fout.close();
+  ifstream fin("input.txt");
+  fin >> res;
+  cout << res;
+  fin.close();
+  system("pause");
+
 }
