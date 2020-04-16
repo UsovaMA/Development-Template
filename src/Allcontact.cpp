@@ -59,7 +59,16 @@ int AllContact::i_poisk_fio(string i, string f, string o)
   return (-1);
 }
 
-
+AllContact&AllContact::operator=(const AllContact& t) {
+  if (size != 0) {
+    delete[] con;
+  }
+  size = t.size;
+  for (int a = 0; a < size; a++) {
+    con[a] = t.con[a];
+  }
+  return (*this);
+}
 
 AllContact::~AllContact()
 {

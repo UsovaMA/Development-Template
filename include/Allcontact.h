@@ -15,6 +15,7 @@ public:
   AllContact();
   AllContact(Contact *a, int s);
   AllContact(AllContact &a);
+  AllContact& operator=(const AllContact& t);
   int getSize();
   void  AllContact::Dop—on(Contact a);
   int  AllContact::i_poisk_fio(string i, string f, string o );
