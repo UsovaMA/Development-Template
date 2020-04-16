@@ -47,6 +47,18 @@ void AllContact::DopСon(Contact a) // тут ошибка, я устала
   (*this) = res;
 }
 
+int AllContact::i_poisk_fio(string i, string f, string o)
+{
+  bool q;
+  for (int a = 0; a < size; a++) {
+    q=checkFIO(i, f, o, con[a].getNAME(), con[a].getFn(), con[a].getPA());
+    if (q) return a;
+  }
+  return (-1);
+}
+
+
+
 AllContact::~AllContact()
 {
   delete[] con;

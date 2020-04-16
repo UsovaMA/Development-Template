@@ -80,6 +80,19 @@ bool ver_three_word(string str) {
   }
   return 1;
 }
+bool checkFIO(string f1, string i1, string o1, string f2, string i2, string o2) {
+  if ((f1 == f2) && (o1 == o2) && (i1 == i2)) return 1;
+  return 0;
+}
+//проверка одинаковые ли имя и фамилия
+bool poisk_let_word(char a, string f) {
+    if (f.size() > 0) {
+      if (f[0] == a) return 1;
+    }
+    return 0;
+}
+//Поиск по первой букве
+
 
 string breakdown1(string str) {
   int s = str.size();
@@ -159,6 +172,8 @@ string breakdown3(string str) {
     } // 3 word
   return res;
 }
+
+
 
 void exampleIn() {
   cout << "input example" << endl;

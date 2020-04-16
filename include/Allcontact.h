@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include "Contacts.h"
 using namespace std;
-
 class AllContact {
 private:
   Contact *con;
@@ -18,7 +17,7 @@ public:
   AllContact(AllContact &a);
   int getSize();
   void  AllContact::Dop—on(Contact a);
-
+  int  AllContact::i_poisk_fio(string i, string f, string o );
   friend bool operator==(const  AllContact& left, const  AllContact& right) {
     if (left.size == right.size) {
       for (int i = 0; i < right.size; i++) {

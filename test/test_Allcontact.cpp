@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "Allcontact.h"
+using namespace std;
 
 TEST(AllCotact, Construktors) {
   Contact a("Маша", "Ивановна", "Шарова");
