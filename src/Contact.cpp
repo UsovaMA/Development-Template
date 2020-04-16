@@ -6,11 +6,11 @@
 
 Contact::Contact()
 {
-  lname = "0";
-  fname = "0";
-  patro = "0";
-  phone = "0";
-  DatBir = "0";
+  lname = "Иван";
+  fname = "Иванов";
+  patro = "Иванович";
+  phone = "88005553535";
+  DatBir = "20.20.67";
   fav = 0;
 }
 
@@ -34,14 +34,14 @@ Contact::Contact(string n, string f, string pat)
   fav = 0;
 }
 
-Contact::Contact(string n, string f, string pat, string ph)
+Contact::Contact(string n, string f, string pat, string ph, bool like)
 {
   lname = n;
   fname = f;
   patro = pat;
   phone = ph;
   DatBir = "0";
-  fav = 0;
+  fav = like;
 }
 
 Contact::Contact(Contact & a)

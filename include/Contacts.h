@@ -19,7 +19,7 @@ public:
   Contact();
   Contact(string s);
   Contact(string n, string f, string pat);
-  Contact(string n, string f, string pat, string ph);
+  Contact(string n, string f, string pat, string ph, bool like);
   Contact(Contact &a);
   friend bool operator==(const  Contact& left, const  Contact& right) {
     if (left.fname != right.fname) return 0;

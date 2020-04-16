@@ -9,11 +9,13 @@ AllContact::AllContact() {
   con = 0;
 }
 
-AllContact::AllContact(Contact a)
+AllContact::AllContact(Contact *a, int s)
 {
-  size = 1;
+  size = s;
   con = new Contact[size];
-  con[0] = a;
+  for (int i = 0; i < size; i++) {
+    con[i] = a[i];
+  }
 }
 
 AllContact::AllContact(AllContact & a)
@@ -35,7 +37,7 @@ int AllContact::getSize()
 
 
 
-void AllContact::DopÑon(Contact a) // òóò îøèáêà, ÿ óñòàëà
+void AllContact::DopÑon(Contact a) 
 {
   AllContact res;
   res.size = size + 1;

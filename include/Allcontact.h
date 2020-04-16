@@ -13,7 +13,7 @@ private:
   int size;
 public:
   AllContact();
-  AllContact(Contact a);
+  AllContact(Contact *a, int s);
   AllContact(AllContact &a);
   int getSize();
   void  AllContact::Dop—on(Contact a);
