@@ -22,7 +22,7 @@ public:
   friend bool operator==(const  AllContact& left, const  AllContact& right) {
     if (left.size == right.size) {
       for (int i = 0; i < right.size; i++) {
-        if (left.con != right.con) return 0;
+        if (left.con[i] != right.con[i]) return 0;
       }
       return 1;
     }

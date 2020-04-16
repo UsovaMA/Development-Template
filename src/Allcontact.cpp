@@ -64,6 +64,7 @@ AllContact&AllContact::operator=(const AllContact& t) {
     delete[] con;
   }
   size = t.size;
+  con = new Contact[size];
   for (int a = 0; a < size; a++) {
     con[a] = t.con[a];
   }
