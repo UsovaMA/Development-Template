@@ -12,8 +12,7 @@ AllContact::AllContact() {
   con = 0;
 }
 
-AllContact::AllContact(Contact *a, int s)
-{
+AllContact::AllContact(Contact *a, int s) {
   size = s;
   con = new Contact[size];
   for (int i = 0; i < size; i++) {
@@ -21,8 +20,7 @@ AllContact::AllContact(Contact *a, int s)
   }
 }
 
-AllContact::AllContact(AllContact & a)
-{
+AllContact::AllContact(AllContact & a) {
   if (size > 0) {
     delete[] con;
   }
@@ -33,20 +31,40 @@ AllContact::AllContact(AllContact & a)
   }
 }
 
-int AllContact::getSize()
-{
+int AllContact::getSize() {
   return size;
 }
 
-string AllContact::getPH(int nom)
-{
+string AllContact::getPH(int nom) {
   return con[nom].getPH();
+}
+
+int AllContact::min(int f_el) {
+  if (size > 0) {
+    Contact m = con[f_el];
+    int n = f_el;
+    for (int i = f_el+1; i < size; i++) {
+      if (con[i] > m) {
+        m = con[i];
+        n = i;
+      }
+    }
+    return n;
+  }
+  return -1;
+}
+
+void AllContact::Alphabet() {
+  int n;
+  for (int i1 = 0; i1 < size-1; i1++) {
+    n = min(i1);
+    if (n != i1) swap_con(con[n], con[i1]);
+  }
 }
 
 
 
-void AllContact::DopСon(Contact a) 
-{
+void AllContact::DopСon(Contact a) {
   AllContact res;
   res.size = size + 1;
   res.con = new Contact[res.size];
@@ -57,32 +75,31 @@ void AllContact::DopСon(Contact a)
   (*this) = res;
 }
 
-void AllContact::to_screen(int num)
-{
+void AllContact::to_screen(int num) {
   cout << con[num] << endl;
 }
 
-void AllContact::ChangeC(int nom)
-{
+void AllContact::ChangeC(int nom) {
   con[nom].Change();
 }
 
 
 
-void AllContact::DelСon(int nom)
-{
+void AllContact::DelСon(int nom) {
   AllContact res;
   bool a;
-  if (nom == size - 1) a = 0; else a = 1;
+  if (nom == size - 1) { a = 0;
+  } else {
+    a = 1;
+  }
   res.size = size - 1;
   res.con = new Contact[res.size];
-  if (a) { //нужно перемещать
-    res.con[nom] = con[res.size-1]; //на место nom ставим последний элемент
+  if (a) {
+    res.con[nom] = con[res.size-1];
     for (int I = 0; I <= res.size - 1; I++) {
-      if(I!=nom) res.con[I] = con[I];
+      if (I != nom) res.con[I] = con[I];
     }
-  }
-  else {//нужно удалить посл элемент
+  } else {
     for (int I = 0; I <= res.size - 1; I++) {
       res.con[I] = con[I];
     }
@@ -90,21 +107,18 @@ void AllContact::DelСon(int nom)
   (*this) = res;
 }
 
-void AllContact::imFav(int nom, bool like)
-{
+void AllContact::imFav(int nom, bool like) {
   con[nom].imFav(like);
 }
 
-bool AllContact::getFav(int nom)
-{
+bool AllContact::getFav(int nom) {
   return con[nom].getFA();
 }
 
-int AllContact::i_poisk_fio(string i, string f, string o)
-{
+int AllContact::i_poisk_fio(string i, string f, string o) {
   bool q;
   for (int a = 0; a < size; a++) {
-    q=checkFIO(i, f, o, con[a].getNAME(), con[a].getFn(), con[a].getPA());
+    q = checkFIO(i, f, o, con[a].getNAME(), con[a].getFn(), con[a].getPA());
     if (q) return a;
   }
   return (-1);
@@ -122,14 +136,12 @@ AllContact&AllContact::operator=(const AllContact& t) {
   return (*this);
 }
 
-AllContact::~AllContact()
-{
+AllContact::~AllContact() {
   delete[] con;
   size = 0;
 }
 
-ostream & operator<<(ostream & stream, const AllContact & a)
-{
+ostream & operator<<(ostream & stream, const AllContact & a) {
   Contact as;
   for (int i = 0; i < a.size; i++) {
     as = a.con[i];

@@ -33,3 +33,100 @@ TEST(AllCotact, Del_element) {
   EXPECT_EQ(s, 0);
   EXPECT_EQ(A, A1);
 }
+
+TEST(AllCotact, i_poisk_fio) { 
+  Contact *a = new Contact[1];
+  Contact a1("Маша", "Ивановна", "Шарова");
+  AllContact A;
+  A.DopСon(a1);
+  int i = A.i_poisk_fio("Маша", "Ивановна", "Шарова");
+  int i1 = A.i_poisk_fio("", "", "");
+  EXPECT_EQ(i, 0);
+  EXPECT_EQ(i1, -1);
+}
+TEST(AllCotact, oper_ravno_ravno) {
+  AllContact A, A1;
+  bool a = (A == A1);
+  EXPECT_EQ(a, 1);
+}
+
+TEST(AllCotact, min) {
+  AllContact A;
+  Contact a("A A A");
+  Contact b("Б Б Б");
+  Contact c("Я Я Я");
+  A.DopСon(a);
+  A.DopСon(c);
+  A.DopСon(b);
+  int i=A.min(0);
+  /*AllContact A1;
+  A1.DopСon(a);
+  A1.DopСon(b);
+  A1.DopСon(c);*/
+  EXPECT_EQ(i, 0);
+}
+
+TEST(AllCotact, Alphabet3) {
+  AllContact A;
+  Contact a("Петров Алексей Алексеевич");
+  Contact b("Петров Алексей Михайлович");
+  Contact c("Петров Алексей Николаевич");
+  A.DopСon(a);
+  A.DopСon(c);
+  A.DopСon(b);
+  A.Alphabet();
+  AllContact A1;
+  A1.DopСon(a);
+  A1.DopСon(b);
+  A1.DopСon(c);
+  EXPECT_EQ(A, A1);
+}
+TEST(AllCotact, Alphabet) {
+  AllContact A;
+  Contact a("A A A");
+  Contact b("Б Б Б");
+  Contact c("Я Я Я");
+  A.DopСon(a);
+  A.DopСon(c);
+  A.DopСon(b);
+  A.Alphabet();
+  int i = A.min(0);
+  AllContact A1;
+  A1.DopСon(a);
+  A1.DopСon(b);
+  A1.DopСon(c);
+  EXPECT_EQ(A, A1);
+}
+
+TEST(AllCotact, Alphabet1) {
+  AllContact A;
+  Contact a("Петров Алексей Семенович");
+  Contact b("Петров Борис Семенович");
+  Contact c("Петров Яша Семенович");
+  A.DopСon(a);
+  A.DopСon(c);
+  A.DopСon(b);
+  A.Alphabet();
+  AllContact A1;
+  A1.DopСon(a);
+  A1.DopСon(b);
+  A1.DopСon(c);
+  EXPECT_EQ(A, A1);
+}
+
+TEST(AllCotact, Alphabet2) {
+  AllContact A;
+  Contact a("Петров Алексей Семенович");
+  Contact b("Петров Алексей Семенович");
+  Contact c("Петров Алексей Семенович");
+  A.DopСon(a);
+  A.DopСon(c);
+  A.DopСon(b);
+  A.Alphabet();
+  AllContact A1;
+  A1.DopСon(a);
+  A1.DopСon(b);
+  A1.DopСon(c);
+  EXPECT_EQ(A, A1);
+}
+

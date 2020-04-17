@@ -8,23 +8,26 @@
 #include "Contacts.h"
 using namespace std;
 class AllContact {
-private:
+ private:
   Contact *con;
   int size;
-public:
+
+ public:
   AllContact();
   AllContact(Contact *a, int s);
   AllContact(AllContact &a);
   AllContact& operator=(const AllContact& t);
   int getSize();
   string AllContact::getPH(int nom);
+  int AllContact::min(int f_el);
+  void  AllContact::Alphabet();
   void  AllContact::Dop—on(Contact a);
   void  AllContact::to_screen(int num);
   void  AllContact::ChangeC(int nom);
   void  AllContact::Del—on(int nom);
   void imFav(int nom, bool like);
   bool getFav(int nom);
-  int  AllContact::i_poisk_fio(string i, string f, string o );
+  int  AllContact::i_poisk_fio(string i, string f, string o);
   friend bool operator==(const  AllContact& left, const  AllContact& right) {
     if (left.size == right.size) {
       for (int i = 0; i < right.size; i++) {
@@ -38,7 +41,6 @@ public:
     return (!(left == right));
   }
   friend ostream& operator << (ostream& stream, const AllContact& a);
-  //friend istream& operator >> (istream& stream, Contact& a);
   ~AllContact();
 };
 

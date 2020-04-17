@@ -7,15 +7,16 @@
 #include <cstdlib>
 using namespace std;
 
-class Contact { 
-private:
+class Contact {
+ private:
   std::string lname;  // Name
   std::string fname;  // Familia
   std::string patro;  // Otchestvo
   std::string phone;  // Number of phpone
   std::string DatBir;  // Date of birthday
   bool fav;  // 1-like, 0-dislike
-public:
+
+ public:
   Contact();
   Contact(string s);
   Contact(string n, string f, string pat);
@@ -35,7 +36,7 @@ public:
   }
   Contact& operator=(const Contact& t);
   Contact& operator=(const Contact* t);
-  string getNAME(); 
+  string getNAME();
   string getFn();
   string getPA();
   string getPH();
@@ -48,6 +49,8 @@ public:
   void imFav(bool a);
   friend ostream& operator << (ostream& stream, const Contact& a);
   friend istream& operator >> (istream& stream, Contact& a);
+  bool operator>(const Contact& t);
+  /*bool operator<(const Contact& t);*/
   void  Contact::Change();
   ~Contact();
   friend class Allcontact;
