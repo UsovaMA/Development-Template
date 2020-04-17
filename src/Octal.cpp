@@ -172,28 +172,8 @@ Octal Octal::operator-(const Octal& c) {
   ms1 = s-s1;
   int *b = new int[s];
   if (size < c.size) {
-    Octal this_copy(size + ms1);
-    Octal c_copy(c);
-    for (int i = 0; i < s1; i++) {
-      this_copy.oct[i] = oct[i];
-    }
-    for (int i = s1; i < s; ++i) {
-      this_copy.oct[i] = '0';
-    }
-    Octal res(s);
-      for (int i = 0; i < s; i++) {
-        b[i] = (c_copy.oct[i] - '0') - (this_copy.oct[i] - '0') + k;
-        k = 0;
-        if (b[i] < 0) {
-          b[i] = b[i] + 8;
-          k = -1;
-        }
-      }
-    cout << "-";
-    for (int i = s - 1; i >= 0; i--) {
-      res.oct[i] = b[i];
-      res.oct[i] = res.oct[i] + 48;
-    }
+    Octal res;
+    res = WRONG;
     return res;
   }
   else {
@@ -215,41 +195,6 @@ Octal Octal::operator-(const Octal& c) {
             k = -1;
           }
         }
-      for (int i = s - 1; i >= 0; i--) {
-        res.oct[i] = b[i];
-        res.oct[i] = res.oct[i] + 48;
-      }
-      return res;
-    }
-    else {
-      Octal c_copy(c);
-      Octal this_copy(*this);
-      Octal res(s);
-      ms = (c_copy.oct[s-1] - '0') - (this_copy.oct[s-1] - '0');
-      if (ms <= 0) {
-        for (int i = 0; i < s; i++) {
-          b[i] = (this_copy.oct[i] - '0') - (c_copy.oct[i] - '0') + k;
-          k = 0;
-          if (b[i] < 0) {
-            b[i] = b[i] + 8;
-            k = -1;
-          }
-        }
-      }
-      else {
-        for (int i = 0; i < s; i++) {
-          b[i] = (c_copy.oct[i] - '0') - (this_copy.oct[i] - '0') + k;
-          k = 0;
-          if (b[i] < 0) {
-            b[i] = b[i] + 8;
-            k = -1;
-          }
-        }
-      }
-      if (ms > 0) {
-        cout << "-";
-      }
-
       for (int i = s - 1; i >= 0; i--) {
         res.oct[i] = b[i];
         res.oct[i] = res.oct[i] + 48;

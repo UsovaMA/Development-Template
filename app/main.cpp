@@ -1,8 +1,8 @@
 #include "Octal.h"
 int main() {
 
-  Octal a = "17";
-  Octal b = "2";
+  Octal a = "4";
+  Octal b = "45";
   Octal c, f;
   cout << "a =  " ;
   cout << a;

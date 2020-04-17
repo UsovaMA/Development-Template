@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <cmath>
 #include<fstream>
+#define WRONG "WRONG!!!"
 
 using namespace std;
 class Octal {

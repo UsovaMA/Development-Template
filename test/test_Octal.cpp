@@ -14,16 +14,30 @@ TEST(Addition, CanAddTwoPositiveNumbersWhenTheFirstChangeOfTheOther) {
   ASSERT_EQ(c, "66046");
 }
 TEST(Addition, CanAddTwoNumbersDifferentLenghtFirstLong) {
-  Octal a = "17";
+  Octal a = "777";
   Octal b = "1";
   Octal c = a + b;
-  ASSERT_EQ(c, "20");
+  ASSERT_EQ(c, "1000");
 }
+TEST(Addition, ProvercaNaKRavnoeNulu) {
+  Octal a = "777";
+  Octal b = "777";
+  Octal c = a + b;
+  ASSERT_EQ(c, "1776");
+}
+
 TEST(Addition, CanAddTwoNumbersDifferentLenghtSecondLong) {
   Octal a = "1";
-  Octal b = "17";
+  Octal b = "777";
   Octal c = a + b;
-  ASSERT_EQ(c, "20");
+  ASSERT_EQ(c, "1000");
+}
+TEST(Addition, DvoinoeVichitanie) {
+  Octal a = "37234";
+  Octal b = "234";
+  Octal d = "651";
+  Octal c = a - b - d;
+  ASSERT_EQ(c, "36127");
 }
 TEST(raznost, CanDiffTwoNumbersDifferentLenghtFirstLong) {
   Octal a = "23745";
@@ -32,18 +46,26 @@ TEST(raznost, CanDiffTwoNumbersDifferentLenghtFirstLong) {
   ASSERT_EQ(c, "20072");
 }
 
-TEST(raznost, CanDiffTwoNumbersOneLenght) {
-  Octal a = "63";
-  Octal b = "32";
+TEST(raznost, CanDiffTwoNumbersDifferentLenghtFirst) {
+  Octal a = "162";
+  Octal b = "23";
   Octal c = a - b;
-  ASSERT_EQ(c, "31");
+  ASSERT_EQ(c, "137");
 }
 TEST(raznost, CanDiffTwoNumbersDifferentLenghtSecondLong) {
   Octal a = "23";
   Octal b = "162";
-  Octal c = a - b;
-  ASSERT_EQ(c, "137");
+  Octal c = a - b ;
+  ASSERT_EQ(c, WRONG);
 }
+
+TEST(raznost, LenPridumivat) {
+  Octal a = "23672";
+  Octal b = "562";
+  Octal c = a - b;
+  ASSERT_EQ(c, "23110");
+}
+
 TEST(sravnenie, CanSravnTwoPositiveNumbersRavni) {
   Octal a = "25";
   Octal b = "25";
