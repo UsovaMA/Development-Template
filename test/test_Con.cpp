@@ -26,8 +26,10 @@ TEST(Cotacts, All_IM) {
   a.imNAME(a1);
   a.imPA(a3);
   a.imPH(a4);
+  a.imFav(1);
   EXPECT_EQ(a.getNAME(), "Маша");
   EXPECT_EQ(a.getFn(), "Ивановна");
   EXPECT_EQ(a.getPA(), "Шарова");
   EXPECT_EQ(a.getPH(), "88005553535");
+  EXPECT_EQ(a.getFA(), 1);
 }

@@ -45,8 +45,10 @@ public:
   void imFn(string n);
   void imPA(string n);
   void imPH(string n);
+  void imFav(bool a);
   friend ostream& operator << (ostream& stream, const Contact& a);
   friend istream& operator >> (istream& stream, Contact& a);
+  void  Contact::Change();
   ~Contact();
   friend class Allcontact;
 };

@@ -17,7 +17,13 @@ public:
   AllContact(AllContact &a);
   AllContact& operator=(const AllContact& t);
   int getSize();
+  string AllContact::getPH(int nom);
   void  AllContact::Dop—on(Contact a);
+  void  AllContact::to_screen(int num);
+  void  AllContact::ChangeC(int nom);
+  void  AllContact::Del—on(int nom);
+  void imFav(int nom, bool like);
+  bool getFav(int nom);
   int  AllContact::i_poisk_fio(string i, string f, string o );
   friend bool operator==(const  AllContact& left, const  AllContact& right) {
     if (left.size == right.size) {
@@ -31,7 +37,7 @@ public:
   friend bool operator!=(const  AllContact& left, const  AllContact& right) {
     return (!(left == right));
   }
-  //friend ostream& operator << (ostream& stream, const Contact& a);
+  friend ostream& operator << (ostream& stream, const AllContact& a);
   //friend istream& operator >> (istream& stream, Contact& a);
   ~AllContact();
 };
