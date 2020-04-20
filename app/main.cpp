@@ -30,14 +30,7 @@ int main() {
       cout << "|___________________|" << endl;
       cin >> i;
       if (i == 1) {
-        ifstream in;
-        in.open("input.txt");
-        string str;
-        while (getline(in, str)) {
-          // a.OB(str);
-          // A.DopSTR(a);
-        }
-        in.close();
+          A.read_from_file();
       }
       while (i == 2) {
         if (A.getSize() == 0)exampleIn();
@@ -96,7 +89,7 @@ int main() {
         if (i2 == 2) {
           cout << "Enter name(surname, name, patronymic)- ";
           cin >> sdop1 >> sdop2 >> sdop3;
-          idop = A.i_poisk_fio(sdop1, sdop2, sdop3);
+          idop = A.i_poisk_fio(sdop2, sdop1, sdop3);
           if (idop == -1) {
             cout << "Contact not found" << endl;
             i3 = 1;
@@ -168,13 +161,7 @@ int main() {
         }
       }
       if (i2 == 3) {
-        ofstream out;
-        out.open("output.txt");
-        out << "123" << endl;
-        for (int I = 0; I < A.getSize(); I++) {
-          out << "123" << endl;  // A
-        }
-        out.close();
+        A.imput_in_file();
       }
       if (i2 == 4) i = 1;
       if (i2 == 5) i = 10;

@@ -1,10 +1,15 @@
 #include "..\include\Allcontact.h"
 #include "..\include\Allcontact.h"
 #include "..\include\Allcontact.h"
+#include "..\include\Allcontact.h"
 #include "..\include\Contacts.h"
 #include "..\include\Contacts.h"
 #include "..\include\Contacts.h"
+#include <iostream>
+#include <fstream>
+#include <clocale>
 #include "Allcontact.h"
+#include "windows.h"
 #include "Fun.h"
 
 AllContact::AllContact() {
@@ -39,7 +44,7 @@ string AllContact::getPH(int nom) {
   return con[nom].getPH();
 }
 
-int AllContact::min(int f_el) {
+int AllContact::minc(int f_el) {
   if (size > 0) {
     Contact m = con[f_el];
     int n = f_el;
@@ -57,7 +62,7 @@ int AllContact::min(int f_el) {
 void AllContact::Alphabet() {
   int n;
   for (int i1 = 0; i1 < size-1; i1++) {
-    n = min(i1);
+    n =minc(i1);
     if (n != i1) swap_con(con[n], con[i1]);
   }
 }
@@ -88,22 +93,19 @@ void AllContact::ChangeC(int nom) {
 void AllContact::DelСon(int nom) {
   AllContact res;
   bool a;
-  if (nom == size - 1) { a = 0;
-  } else {
-    a = 1;
-  }
-  res.size = size - 1;
-  res.con = new Contact[res.size];
-  if (a) {
-    res.con[nom] = con[res.size-1];
-    for (int I = 0; I <= res.size - 1; I++) {
-      if (I != nom) res.con[I] = con[I];
+    if (nom == size - 1) {
+      a = 0;
+    } else {
+      a = 1;
     }
-  } else {
+    res.size = size - 1;
+    res.con = new Contact[res.size];
+    if (a) {
+      con[nom] = con[res.size];
+    }
     for (int I = 0; I <= res.size - 1; I++) {
       res.con[I] = con[I];
     }
-  }
   (*this) = res;
 }
 
@@ -148,4 +150,105 @@ ostream & operator<<(ostream & stream, const AllContact & a) {
     cout << as << endl;
   }
   return stream;
+}
+
+void AllContact::read_from_file() {
+  //ifstream in;
+  SetConsoleCP(1251);
+  SetConsoleOutputCP(1251);
+
+  std::fstream fs;
+
+  fs.open("C:\\projects\\contacts.txt", std::fstream::in | std::fstream::out);
+
+  if (!fs.is_open()) {
+    std::cout << "Ошибка открытия файла!" << std::endl;
+  }
+  else {
+    std::cout << "Файл открыт\n" << std::endl;
+    if (fs.peek() == EOF)
+    {
+      std::cout << "Файл пуст\n";
+    }
+    else
+    {
+      if (size != 0) {
+        delete[]con;
+        size = 0;
+      }
+      fs >> size;
+      con = new Contact[size];
+      for (int i = 0; i < size; i++) {
+        void imNAME(string n);
+        void imFn(string n);
+        void imPA(string n);
+        void imPH(string n);
+        void imFav(bool a);
+        string name, fn, pa, bd, ph, fav;
+        fs >> fn;
+        con[i].imFn(fn);
+        fs >> name;
+        con[i].imNAME(name);
+        fs >> pa;
+        con[i].imPA(pa);
+        fs >> ph;
+        con[i].imPH(ph);
+        fs >> bd;
+        con[i].imBD(bd);
+        fs >> fav;
+        if (fav == "0") {
+         con[i].imFav(0);
+        } else {
+          con[i].imFav(1);
+        }
+
+      }
+      std::cout << "Данные успешно считаны" << std::endl << std::endl;
+    }
+  }
+  fs.close();
+}
+
+void AllContact::imput_in_file()
+{
+  SetConsoleCP(1251);
+  SetConsoleOutputCP(1251);
+
+  std::fstream fs;
+  fs.open("C:\\projects\\contacts1.txt");
+
+  if (!fs.is_open()) {
+    std::cout << "Ошибка открытия файла!" << std::endl;
+  }
+  else {
+    std::cout << "Файл открыт\n" << std::endl;
+    if (fs.peek() != EOF)
+    {
+      std::cout << "Файл должен быть пустым\n" << std::endl;
+    }
+    else
+    {
+      for (int i = 0; i < size; i++) {
+        string name, fn, pa, bd, ph, fav;
+        bool f;
+        name = con[i].getNAME();
+        fn = con[i].getFn();
+        pa = con[i].getPA();
+        bd = con[i].getBD();
+        ph = con[i].getPH();
+        f = con[i].getFA();
+        if (f == 0) {
+          fav = "No";
+        } else {
+          fav = "Yes";
+        }
+        fs << "            name: " << fn << " " << name << " " << pa << std::endl;
+        if ((ph != "0") && (ph != ""))  fs << "           phone:" << " " << ph << endl << std::endl;
+        if (bd != "0") fs << "date of birthday: " << bd << endl << std::endl;
+        fs << "       favorites: " << fav << std::endl;
+      }
+      std::cout << "Данные успешно выведены в файл" << std::endl << std::endl;
+    }
+  }
+  fs.close();
 }

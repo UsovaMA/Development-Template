@@ -19,7 +19,7 @@ class AllContact {
   AllContact& operator=(const AllContact& t);
   int getSize();
   string AllContact::getPH(int nom);
-  int AllContact::min(int f_el);
+  int AllContact::minc(int f_el);
   void  AllContact::Alphabet();
   void  AllContact::Dop—on(Contact a);
   void  AllContact::to_screen(int num);
@@ -41,6 +41,8 @@ class AllContact {
     return (!(left == right));
   }
   friend ostream& operator << (ostream& stream, const AllContact& a);
+  void read_from_file();
+  void imput_in_file();
   ~AllContact();
 };
 

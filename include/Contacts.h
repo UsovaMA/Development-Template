@@ -46,6 +46,7 @@ class Contact {
   void imFn(string n);
   void imPA(string n);
   void imPH(string n);
+  void imBD(string n);
   void imFav(bool a);
   friend ostream& operator << (ostream& stream, const Contact& a);
   friend istream& operator >> (istream& stream, Contact& a);

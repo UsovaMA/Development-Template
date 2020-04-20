@@ -58,7 +58,7 @@ TEST(AllCotact, min) {
   A.Dop—on(a);
   A.Dop—on(c);
   A.Dop—on(b);
-  int i=A.min(0);
+  int i=A.minc(0);
   /*AllContact A1;
   A1.Dop—on(a);
   A1.Dop—on(b);
@@ -90,7 +90,7 @@ TEST(AllCotact, Alphabet) {
   A.Dop—on(c);
   A.Dop—on(b);
   A.Alphabet();
-  int i = A.min(0);
+  int i = A.minc(0);
   AllContact A1;
   A1.Dop—on(a);
   A1.Dop—on(b);

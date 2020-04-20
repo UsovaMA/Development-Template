@@ -2,6 +2,7 @@
 #include "..\include\Contacts.h"
 #include "..\include\Contacts.h"
 #include "..\include\Contacts.h"
+#include "..\include\Contacts.h"
 #include "Contacts.h"
 #include "Fun.h"
 
@@ -92,6 +93,11 @@ void Contact::imPH(string n) {
   phone = n;
 }
 
+void Contact::imBD(string n)
+{
+  DatBir = n;
+}
+
 void Contact::imFav(bool a) {
   fav = a;
 }
@@ -118,7 +124,7 @@ istream& operator >> (istream& stream, Contact &a) {
   bool v = 1;
   if (v) {
     cout << "New contact:" << endl;
-    cout << "name: ";
+    cout << "name(Familia, Name, Othestvo): ";
     cin >> a1 >> a2 >> a3;
     a.fname = a1;
     a.lname = a2;
