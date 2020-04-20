@@ -31,6 +31,7 @@ MediaPlayer::MediaPlayer(const Song a) {
 	arr[0] = a;
 }
 
+
 // Реализация методов класса и дополнительных функций
 
 void Song::show_song_info() {
@@ -107,8 +108,28 @@ int MediaPlayer::index_of_Song_name(string a) {
 int MediaPlayer::index_of_Song_name_and_singer(string a, string b) {
 	for (int i = 0; i < size; ++i) {
 		if (arr[i].get_Name_of_song() == a && arr[i].get_Name_of_singer() == b) {
-			cout << "Песня найдена!" << endl;
+			cout << "Song was found" << endl;
 			return i;
 		}
+	}
+	cout << "Song wasnt found" << endl;
+	return -1;
+}
+
+void MediaPlayer::song_of_Author_of_song(string a) {
+	for (int i = 0; i < size; ++i) {
+		if (arr[i].get_Author_of_song() == a) arr[i].show_song_info();
+	}
+}
+
+void MediaPlayer::song_of_Author_of_music(string a) {
+	for (int i = 0; i < size; ++i) {
+		if (arr[i].get_Author_of_music() == a) arr[i].show_song_info();
+	}
+}
+
+void MediaPlayer::song_of_singer(string a) {
+	for (int i = 0; i < size; ++i) {
+		if (arr[i].get_Name_of_singer() == a) arr[i].show_song_info();
 	}
 }

@@ -34,6 +34,8 @@ public:
 	void set_Date_of_release(string a);
 
 	void show_song_info();
+
+	~Song();
 };
 
 class MediaPlayer {
@@ -46,6 +48,9 @@ public:
 	void add_new_song(string a, string b, string c, string d, string e, string f);
 	int index_of_Song_name(string a);
 	int index_of_Song_name_and_singer(string a, string b);
+	void song_of_Author_of_song(string a);
+	void song_of_Author_of_music(string a);
+	void song_of_singer(string a);
 };
 
 

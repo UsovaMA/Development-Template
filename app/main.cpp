@@ -45,7 +45,7 @@ int main() {
 			cin >> a;
 			index = mass.index_of_Song_name(a);
 			cout << index;
-			cout << "Введите новые данные: " << endl;
+			cout << "Введите новые данные:"<< endl;
 			cout << "Автор песни: ";
 			cin >> b;
 			cout << "Автор музыки: ";
@@ -64,17 +64,33 @@ int main() {
 			cout << endl;
 			break;
 		case 3:
-			cout << "Введите название и исполнителя песни, которую вы хотите найти: ";
+			cout << "Введите название и исполнителя песни, которую вы хотите найти" << endl;
+			cout << "Название песни: ";
+			cin >> a;
+			cout << "Исполнитель: ";
+			cin >> b;
+			cout << endl;
+			index = mass.index_of_Song_name_and_singer(a, b);
+			cout << "Информация о песни: " << endl;
+			if(index != -1) mass.arr[index].show_song_info();
 			break;
 		case 4:
+			cout << "Введите имя автора, чьи песни вы хотите найти: ";
+			cin >> a;
 			break;
 		case 5:
+			cout << "Введите имя композитора, чьи песни вы хотите найти: ";
+			cin >> a;
 			break;
 		case 6:
+			cout << "Введите имя исполнителя, чьи песни вы хотите найти: ";
+			cin >> a;
 			break;
 		case 7:
+			cout << mass.size << endl;
 			break;
 		case 8:
+
 			break;
 		case 9:
 			break;
