@@ -8,6 +8,12 @@
 
 using namespace std;
 
+int* Resize(int *a, int oldSize, int newSize);
+int min(int a, int b);
+int StringTimeToMin(string time);
+void StringDateToIntArr(string date, int* arr);
+int toInt(string number);
+
 struct myPair
 {
 public:
@@ -30,6 +36,8 @@ public:
   Data* Data::operator=(Data* c);
   ~Data();
 };
+
+Data* Resize(Data *a, int oldSize, int newSize);
 
 // pointers one love
 struct pointerPair {

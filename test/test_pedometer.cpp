@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include "pedometer.h"
 
-
 TEST(TestFunctions, AddCount) {
   Pedometer x;
   Pedometer res("12.12.12", "12:20", "15:20", 2000);
@@ -112,3 +111,86 @@ TEST(TestFunctions, ReadFromFile_IncorrectFileName) {
   ASSERT_ANY_THROW(x.readHistoryFromFile(file, false));
 }
 
+// =(( 
+TEST(TestHelpFunctions, ResizeForData) {
+  bool answer = false;
+  Data *x, *y, *tmp;
+  int i, j;
+  y = 0;
+  x = new Data[2];
+  tmp = new Data[2];
+  for (i = 0; i < 2; ++i) {
+    x[i].num_of_steps = 41 + i;
+    x[i].time_start = 200 + i;
+    x[i].time_finish = 502 + i;
+    for (j = 0; j < 3; ++j)
+      x[i].date[j] = 2 + j + i;
+  }
+  cout << x[1].num_of_steps;
+  for (i = 0; i < 2; ++i)
+    tmp[i] = x[i];
+  y = Resize(tmp, 2, 2);
+  for (i = 0; i < 2; ++i) {
+    if (x[i].time_start == y[i].time_start
+      && x[i].time_finish == y[i].time_finish
+      && x[i].num_of_steps == y[i].num_of_steps) {
+      for (j = 0; j < 3; ++j) {
+        if (x[i].date[j] == y[i].date[j]) {
+          if (i == 1 && j == 2)
+            answer = true;
+        }
+      }
+    }
+  }
+  EXPECT_EQ(true, answer);
+}
+
+TEST(TestHelpFunctions, ResizeForInt) {
+  bool answer = false;
+  int *x, *y, *tmp, i;
+  y = 0;
+  x = new int[2];
+  tmp = new int[2];
+  x[0] = tmp[0] = 4;
+  x[1] = tmp[1] = 8;
+  y = Resize(tmp, 2, 2);
+  for (i = 0; i < 2; ++i) {
+    if (x[i] != y[i])
+      break;
+  }
+  if (i == 2)
+    answer = true;
+  EXPECT_EQ(true, answer);
+}
+
+TEST(TestHelpFunctions, Min) {
+  int x, y, res;
+  x = 10;
+  y = 5;
+  res = y;
+  EXPECT_EQ(res, min(x, y));
+}
+
+TEST(TestHelpFunctions, StringTimeToMin) {
+  string time = "10:23";
+  int res = 623;
+  EXPECT_EQ(res, StringTimeToMin(time));
+}
+// =((
+TEST(TestHelpFunctions, StringDateToIntArr) {
+  string date = "21.04.20";
+  bool answer = false;
+  int arr[3], i;
+  for (i = 0; i < 3; ++i)
+    arr[i] = 0;
+  StringDateToIntArr(date, arr);
+  if (arr[0] == 21 && arr[1] == 4 && arr[2] == 20)
+    answer = true;
+  EXPECT_EQ(true, answer);
+}
+
+TEST(TestHelpFunctions, toInt) {
+  string number = "2124";
+  int res = 2124;
+  EXPECT_EQ(res, toInt(number));
+}

@@ -1,11 +1,6 @@
 #include "pedometer.h"
 
-Data* Resize(Data *a, int oldSize, int newSize);
-int* Resize(int *a, int oldSize, int newSize);
-int min(int a, int b);
-int StringTimeToMin(string time);
-void StringDateToIntArr(string date, int* arr);
-int toInt(string number);
+
 
 Data::Data() {
   time_start = 0;
@@ -55,7 +50,7 @@ Data::~Data() {
 
 Pedometer::Pedometer() {
   counting = 0;
-  history = new Data[counting];
+  history = new Data[0];
 }
 
 Pedometer::Pedometer(string date, string _time_start, string _time_finish,
@@ -68,6 +63,7 @@ Pedometer::Pedometer(string date, string _time_start, string _time_finish,
   history[0].num_of_steps = _num_of_steps;
   StringDateToIntArr(date, history[0].date);
 }
+
 
 bool Pedometer::operator==(Pedometer &c) {
   int i, j;
@@ -115,8 +111,6 @@ bool operator==(Pedometer const &c1, Pedometer const &c2) {
   }
   return true;
 }
-
-
 
 Pedometer::~Pedometer() {
   int i, j;
@@ -175,7 +169,7 @@ void Pedometer::addCounting() {
   cout << "Count was added" << endl;
   counting++;
 }
-// проеб тут
+
 Pedometer Pedometer::getInfo(string _date, string _time_start,
   string _time_finish) {
   Pedometer res, resReturn;
