@@ -7,8 +7,10 @@ int main() {
 
 	int index;
 	int number;
-	string a, b, c, d, e, f;
+	string a, b, c, d, e, f, str;
 	MediaPlayer mass;
+	ifstream file;
+	int tmp = 0;
 
 	while (1) {
 		cout << "Песенник:" << endl;
@@ -22,7 +24,10 @@ int main() {
 		cout << "8. Удалить песню" << endl;
 		cout << "9. Считать песенник из файла" << endl;
 		cout << "10. Записать песенник в файл" << endl;
+		cout << "11. Выйти из программы" << endl;
 		cin >> number;
+		cin.ignore();
+		cout << endl;
 		switch (number) {
 		case 1:
 			cout << "Название песни: ";
@@ -73,34 +78,73 @@ int main() {
 			index = mass.index_of_Song_name_and_singer(a, b);
 			cout << "Информация о песни: " << endl;
 			if(index != -1) mass.arr[index].show_song_info();
+			cout << endl;
 			break;
 		case 4:
 			cout << "Введите имя автора, чьи песни вы хотите найти: ";
 			cin >> a;
+			cout << endl;
 			break;
 		case 5:
 			cout << "Введите имя композитора, чьи песни вы хотите найти: ";
 			cin >> a;
+			cout << endl;
 			break;
 		case 6:
 			cout << "Введите имя исполнителя, чьи песни вы хотите найти: ";
 			cin >> a;
+			cout << endl;
 			break;
 		case 7:
 			cout << mass.size << endl;
 			break;
 		case 8:
-
+			cout << "Введите название песни, которую вы хотите удалить: ";
+			cin >> a;
+			index = mass.index_of_Song_name(a);
+			mass.delete_song(a, index);
+			cout << endl;
 			break;
 		case 9:
+			file.open("C://Data.txt", ios::in);
+			if (!file.is_open()) cout << "Cant open file" << endl;
+			while (getline(file, str)) {
+				tmp++;
+				if (tmp == 1) {
+					a = str.erase(0, 29);
+				}
+				if (tmp == 2) {
+					b = str.erase(0, 23);
+				}
+				if (tmp == 3) {
+					c = str.erase(0, 25);
+				}
+				if (tmp == 4) {
+					d = str.erase(0, 24);
+				}
+				if (tmp == 5) {
+					e = str.erase(0, 33);
+				}
+				if (tmp == 6) {
+					f = str.erase(0, 23);
+				}
+				if (tmp == 7) {
+					mass.add_new_song(a, b, c, d, e, f);
+					tmp = 0;
+				}
+			}
+			file.close();
 			break;
 		case 10:
+			mass.set_Data_to_file();
 			break;
+		case 11:
+			exit(1);
 		}
 		for (int i = 0; i < mass.size; ++i) {
 			mass.arr[i].show_song_info();
 		}
 	}
-
+	delete[] mass.arr;
 	return 0;
 }
