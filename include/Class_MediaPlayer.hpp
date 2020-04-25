@@ -35,7 +35,7 @@ public:
 	void set_Date_of_release(string a);
 
 	void show_song_info();
-
+	friend bool operator==(const Song& left, const Song& right);
 };
 
 class MediaPlayer {
@@ -52,10 +52,7 @@ public:
 	void song_of_Author_of_music(string a);
 	void song_of_singer(string a);
 	void delete_song(string a, int index);
-	void get_Data_from_file();
 	void set_Data_to_file();
 };
-
-
 
 #endif INCLUDE_CLASS_MEDIAPLAYER_HPP_

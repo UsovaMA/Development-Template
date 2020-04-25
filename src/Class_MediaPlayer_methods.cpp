@@ -171,11 +171,13 @@ void MediaPlayer::set_Data_to_file() {
 	file.close();
 }
 
-void MediaPlayer::get_Data_from_file() {
-	ifstream file;
-	file.open("C://Data.txt", ios::in);
-	while (!file.eof) {
-		
-	}
+bool operator==(const Song& left, const Song& right) {
+	if (left.get_Author_of_music() == right.get_Author_of_music() &&
+		left.get_Author_of_song() == right.get_Author_of_song() &&
+		left.get_Date_of_release() == right.get_Date_of_release() &&
+		left.get_Name_of_album() == right.get_Name_of_album() &&
+		left.get_Name_of_singer() == right.get_Name_of_singer() &&
+		left.get_Name_of_song() == right.get_Name_of_song()) {
+		return 1;
+	} else return 0;
 }
-

@@ -49,7 +49,6 @@ int main() {
 			cout << "¬ведите название песни, данные о которой вы хотите изменить: ";
 			cin >> a;
 			index = mass.index_of_Song_name(a);
-			cout << index;
 			cout << "¬ведите новые данные:"<< endl;
 			cout << "јвтор песни: ";
 			cin >> b;
@@ -83,16 +82,19 @@ int main() {
 		case 4:
 			cout << "¬ведите им€ автора, чьи песни вы хотите найти: ";
 			cin >> a;
+			mass.song_of_Author_of_song(a);
 			cout << endl;
 			break;
 		case 5:
 			cout << "¬ведите им€ композитора, чьи песни вы хотите найти: ";
 			cin >> a;
+			mass.song_of_Author_of_music(a);
 			cout << endl;
 			break;
 		case 6:
 			cout << "¬ведите им€ исполнител€, чьи песни вы хотите найти: ";
 			cin >> a;
+			mass.song_of_singer(a);
 			cout << endl;
 			break;
 		case 7:
@@ -140,9 +142,6 @@ int main() {
 			break;
 		case 11:
 			exit(1);
-		}
-		for (int i = 0; i < mass.size; ++i) {
-			mass.arr[i].show_song_info();
 		}
 	}
 	delete[] mass.arr;
