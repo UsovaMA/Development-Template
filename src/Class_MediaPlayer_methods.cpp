@@ -12,6 +12,9 @@ Song::Song() {
 }
 
 Song::Song(string a, string b, string c, string d, string e, string f) {
+	for (int i = 0; i < f.size() - 1; ++i) {
+		if ((f[i] < 0 && f[i]>9) || f[i] != 58) throw logic_error("Date of release can only contain numbers");
+	}
 	Name_of_song = a;
 	Author_of_song = b;
 	Author_of_music = c;
@@ -30,7 +33,6 @@ MediaPlayer::MediaPlayer(const Song a) {
 	arr = new Song[size];
 	arr[0] = a;
 }
-
 
 // Реализация методов класса и дополнительных функций
 
@@ -101,8 +103,12 @@ void Song::set_Author_of_song(string a) {
 
 int MediaPlayer::index_of_Song_name(string a) {
 	for (int i = 0; i < size; ++i) {
-		if (arr[i].get_Name_of_song() == a) return i;
-	}
+		if (arr[i].get_Name_of_song() == a) {
+			return i;
+		}
+	} 
+	cout << "Song wasnt found" << endl << endl;
+	return -1;
 }
 
 int MediaPlayer::index_of_Song_name_and_singer(string a, string b) {
@@ -112,7 +118,7 @@ int MediaPlayer::index_of_Song_name_and_singer(string a, string b) {
 			return i;
 		}
 	}
-	cout << "Song wasnt found" << endl;
+	cout << "Song wasnt found" << endl << endl;;
 	return -1;
 }
 
@@ -134,7 +140,7 @@ void MediaPlayer::song_of_singer(string a) {
 	}
 }
 
-void MediaPlayer::delete_song(string a, int index) {
+void MediaPlayer::delete_song(int index) {
 	Song *tmp;
 	for (int i = index; i < size - 1; ++i) {
 		arr[i] = arr[i + 1];
@@ -151,6 +157,7 @@ void MediaPlayer::delete_song(string a, int index) {
 		arr[i] = tmp[i];
 	}
 	delete[]tmp;
+	cout << "Song deleted" << endl << endl;
 }
 
 void MediaPlayer::set_Data_to_file() {
@@ -158,12 +165,12 @@ void MediaPlayer::set_Data_to_file() {
 	file.open("C://Data.txt", ios::app);
 	if (!file.is_open()) cout << "Cant open file" << endl;
 	for (int i = 0; i < size; ++i) {
-		file << "Название песни: " << arr[i].get_Name_of_song() << endl;
-		file << "Автор песни: " << arr[i].get_Author_of_song() << endl;
-		file << "Автор музыки: " << arr[i].get_Author_of_music() << endl;
-		file << "Исполнитель: " << arr[i].get_Name_of_singer() << endl;
-		file << "Название альбома: " << arr[i].get_Name_of_album() << endl;
-		file << "Дата релиза: " << arr[i].get_Date_of_release() << endl;
+		file << "Name of song: " << arr[i].get_Name_of_song() << endl;
+		file << "Author of song: " << arr[i].get_Author_of_song() << endl;
+		file << "Author of music: " << arr[i].get_Author_of_music() << endl;
+		file << "Name of singer: " << arr[i].get_Name_of_singer() << endl;
+		file << "Name of album: " << arr[i].get_Name_of_album() << endl;
+		file << "Date of release: " << arr[i].get_Date_of_release() << endl;
 		file << endl;
 		file.flush();
 	}

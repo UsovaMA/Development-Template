@@ -3,7 +3,6 @@
 #include "Class_MediaPlayer.hpp"
 
 int main() {
-	setlocale(LC_ALL, "Russian");
 
 	int index;
 	int number;
@@ -13,52 +12,54 @@ int main() {
 	int tmp = 0;
 
 	while (1) {
-		cout << "Песенник:" << endl;
-		cout << "1. Добавить песню" << endl;
-		cout << "2. Изменить данные песни" << endl;
-		cout << "3. Найти песню по назаванию и исполнителю" << endl;
-		cout << "4. Выдать все песни заданного автора" << endl;
-		cout << "5. Выдать все песни заданного композитора" << endl;
-		cout << "6. Выдать все песни заданного исполнителя" << endl;
-		cout << "7. Узнать текущее число песен" << endl;
-		cout << "8. Удалить песню" << endl;
-		cout << "9. Считать песенник из файла" << endl;
-		cout << "10. Записать песенник в файл" << endl;
-		cout << "11. Выйти из программы" << endl;
+		cout << "MediaPlayer:" << endl;
+		cout << "1. Add song" << endl;
+		cout << "2. Edit song data" << endl;
+		cout << "3. Find a song by title and artist" << endl;
+		cout << "4. Get all songs of the given author" << endl;
+		cout << "5. Get all songs of the given composer" << endl;
+		cout << "6. Get all songs of the given artist" << endl;
+		cout << "7. Find out the current number of songs" << endl;
+		cout << "8. Delete song" << endl;
+		cout << "9. Read data from file" << endl;
+		cout << "10. Write data to file" << endl;
+		cout << "11. Exit the program" << endl;
 		cin >> number;
 		cin.ignore();
 		cout << endl;
 		switch (number) {
 		case 1:
-			cout << "Название песни: ";
+			cout << "Name of song : ";
 			cin >> a;
-			cout << "Автор песни: ";
+			cout << "Author of song: ";
 			cin >> b;
-			cout << "Автор музыки: ";
+			cout << "Author of music: ";
 			cin >> c;
-			cout << "Исполнитель: ";
+			cout << "Name of singer: ";
 			cin >> d;
-			cout << "Название альбома: ";
+			cout << "Name of album: ";
 			cin >> e;
-			cout << "Дата релиза: ";
+			cout << "Date of release: ";
 			cin >> f;
 			cout << endl;
 			mass.add_new_song(a, b, c, d, e, f);
 			break;
 		case 2:
-			cout << "Введите название песни, данные о которой вы хотите изменить: ";
+			cout << "Enter the name of the song whose data you want to change: ";
 			cin >> a;
+			cout << endl;
 			index = mass.index_of_Song_name(a);
-			cout << "Введите новые данные:"<< endl;
-			cout << "Автор песни: ";
+			if (index == -1) break;
+			cout << "Enter new data:"<< endl;
+			cout << "Author of song: ";
 			cin >> b;
-			cout << "Автор музыки: ";
+			cout << "Author of music: ";
 			cin >> c;
-			cout << "Исполнитель: ";
+			cout << "Singer: ";
 			cin >> d;
-			cout << "Название альбома: ";
+			cout << "Name of song: ";
 			cin >> e;
-			cout << "Дата релиза: ";
+			cout << "Date of release: ";
 			cin >> f;
 			mass.arr[index].set_Author_of_song(b);
 			mass.arr[index].set_Author_of_music(c);
@@ -68,31 +69,32 @@ int main() {
 			cout << endl;
 			break;
 		case 3:
-			cout << "Введите название и исполнителя песни, которую вы хотите найти" << endl;
-			cout << "Название песни: ";
+			cout << "Enter the name of the song and name of singer you want to find" << endl;
+			cout << "Name of song: ";
 			cin >> a;
-			cout << "Исполнитель: ";
+			cout << "Name of singer: ";
 			cin >> b;
 			cout << endl;
 			index = mass.index_of_Song_name_and_singer(a, b);
-			cout << "Информация о песни: " << endl;
+			if (index == -1) break;
+			cout << "About song: " << endl;
 			if(index != -1) mass.arr[index].show_song_info();
 			cout << endl;
 			break;
 		case 4:
-			cout << "Введите имя автора, чьи песни вы хотите найти: ";
+			cout << "Enter the name of author of songs whose songs you want to find: ";
 			cin >> a;
 			mass.song_of_Author_of_song(a);
 			cout << endl;
 			break;
 		case 5:
-			cout << "Введите имя композитора, чьи песни вы хотите найти: ";
+			cout << "Enter the name of author of music whose songs you want to find: ";
 			cin >> a;
 			mass.song_of_Author_of_music(a);
 			cout << endl;
 			break;
 		case 6:
-			cout << "Введите имя исполнителя, чьи песни вы хотите найти: ";
+			cout << "Enter the name of singer whose songs you want to find: ";
 			cin >> a;
 			mass.song_of_singer(a);
 			cout << endl;
@@ -101,10 +103,11 @@ int main() {
 			cout << mass.size << endl;
 			break;
 		case 8:
-			cout << "Введите название песни, которую вы хотите удалить: ";
+			cout << "Enter the name of song whose you want to delete: ";
 			cin >> a;
 			index = mass.index_of_Song_name(a);
-			mass.delete_song(a, index);
+			if (index == -1) break;
+			mass.delete_song(index);
 			cout << endl;
 			break;
 		case 9:
@@ -113,22 +116,22 @@ int main() {
 			while (getline(file, str)) {
 				tmp++;
 				if (tmp == 1) {
-					a = str.erase(0, 29);
+					a = str.erase(0, 14);
 				}
 				if (tmp == 2) {
-					b = str.erase(0, 23);
+					b = str.erase(0, 16);
 				}
 				if (tmp == 3) {
-					c = str.erase(0, 25);
+					c = str.erase(0, 17);
 				}
 				if (tmp == 4) {
-					d = str.erase(0, 24);
+					d = str.erase(0, 16);
 				}
 				if (tmp == 5) {
-					e = str.erase(0, 33);
+					e = str.erase(0, 15);
 				}
 				if (tmp == 6) {
-					f = str.erase(0, 23);
+					f = str.erase(0, 17);
 				}
 				if (tmp == 7) {
 					mass.add_new_song(a, b, c, d, e, f);
