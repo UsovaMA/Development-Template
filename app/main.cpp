@@ -74,8 +74,13 @@ int main(int argc, const char* argv[])
           cout << *it;
           cout << endl;
           ++it;
+          break;
         }
+        
       } while (it != lib.end());
+      cout << "Песен с таким названием нет";
+      cout << endl;
+
       break;
     case 2:
       cout << "Укажите дату издания песни: ";
@@ -88,8 +93,11 @@ int main(int argc, const char* argv[])
           cout << *it;
           cout << endl;
           ++it;
+          break;
         }
       } while (it != lib.end());
+      cout << "Песен с такой датой нет";
+      cout << endl;
       break;
 
     case 3:
@@ -103,8 +111,11 @@ int main(int argc, const char* argv[])
           cout << *it;
           cout << endl;
           ++it;
+          break;
         }
       } while (it != lib.end());
+      cout << "Песен с таким исполнителем нет";
+      cout << endl;
       break;
     case 4:
       inputSong(song);
@@ -146,8 +157,11 @@ int main(int argc, const char* argv[])
           cout << *it;
           cout << endl;
           ++it;
+          break;
         }
       } while (it != lib.end());
+      cout << "Песен с таким поэтом нет";
+      cout << endl;
       break;
     case 9:
       cout << "Укажите композитора: ";
@@ -160,8 +174,11 @@ int main(int argc, const char* argv[])
           cout << *it;
           cout << endl;
           ++it;
+          break;
         }
       } while (it != lib.end());
+      cout << "Песен с таким композитором нет";
+      cout << endl;
       break;
     case 10:
       cout << "Укажите исполнителя: ";
@@ -174,8 +191,11 @@ int main(int argc, const char* argv[])
           cout << *it;
           cout << endl;
           ++it;
+          break;
         }
       } while (it != lib.end());
+      cout << "Песен с таким исполнителем нет";
+      cout << endl;
       break;
     case 11:
       cout << "Колличество песен в плейлесте:";
