@@ -32,19 +32,26 @@ ostream& operator << (ostream& os, const Song& b) {
 
 void inputSong(Song& b) {
   string da, ti, po, co, al, yr;
+  
   cout << "Ввод данных о песне\n" << "~~~~~~~~~~~~~~~~~~~\n";
   cout << "Название   : ";
   getline(cin, ti);
+  transform(ti.begin(), ti.end(), ti.begin(), toupper);
   cout << "Исполнитель  : ";
   getline(cin, da);
+  transform(da.begin(), da.end(), da.begin(), toupper);
   cout << "Поэт: ";
-  getline(cin, al);
+  getline(cin, po);
+  transform(po.begin(), po.end(), po.begin(), toupper);
   cout << "Композитор      : ";
   getline(cin, co);
+  transform(co.begin(), co.end(), co.begin(), toupper);
   cout << "Альбом  : ";
   getline(cin, al);
+  transform(al.begin(), al.end(), al.begin(), toupper);
   cout << "Дата: ";
   getline(cin, yr);
+  transform(yr.begin(), yr.end(), yr.begin(), toupper);
   b.set(yr, da, ti, po, co, al);
 }
 
@@ -54,7 +61,14 @@ Playlist::Playlist() {}
     m_bc.push_back(Song);
   }
   int Playlist::numoOfsongs() {
+   
     return m_bc.size();
+  }
+  void Playlist::poporydku() {
+    for (int i = 0; i < m_bc.size(); i++) {
+      cout << endl;
+      cout << m_bc[i];
+    }
   }
   bool Playlist::remove(const Song& Song) {
     auto it = find(m_bc.begin(), m_bc.end(), Song);
@@ -64,6 +78,7 @@ Playlist::Playlist() {}
     }
     return false;
   }
+  
   /*bool edit(const Song& Song, const Song& song1) {
     auto it = find(m_bc.begin(), m_bc.end(), Song);
     if (it != m_bc.end()) {

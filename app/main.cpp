@@ -21,11 +21,11 @@ int main(int argc, const char* argv[])
   }
   Playlist lib;
 
-  lib.append(Song("20.12.1500", "THE CRANBERRIES", "ZOMBIE","Поэт ZOMBIE","Композитор ZOMBIE","Альбом THE CRANBERRIES"));
-  lib.append(Song("20.12.1835", "THE BEATLES", "LET IT BE", "Поэт THE BEATLES", "Композитор THE BEATLES", "Альбом THE BEATLES"));
-  lib.append(Song("20.12.1000", "LINKIN PARK", "NUMB", "Поэт LINKIN PARK", "Композитор LINKIN PARK", "Альбом LINKIN PARK"));
-  lib.append(Song("20.12.2000", "MICHAEL JACKSON", "BILLIE JEAN", "Поэт", "Композитор", "Альбом"));
-  lib.append(Song("20.12.1752", "EMINEM", " LOSE YOURSELF", "Поэт", "Композитор", "Альбом"));
+  lib.append(Song("20.12.1500", "THE CRANBERRIES", "ZOMBIE","ПОЭТ ZOMBIE","КОМПОЗИТОР ZOMBIE","АЛЬБОМ THE CRANBERRIES"));
+  lib.append(Song("20.12.1835", "THE BEATLES", "LET IT BE", "ПОЭТ THE BEATLES", "КОМПОЗИТОР THE BEATLES", "АЛЬБОМ THE BEATLES"));
+  lib.append(Song("20.12.1000", "LINKIN PARK", "NUMB", "ПОЭТ LINKIN PARK", "КОМПОЗИТОР LINKIN PARK", "АЛЬБОМ LINKIN PARK"));
+  lib.append(Song("20.12.2000", "MICHAEL JACKSON", "BILLIE JEAN", "ПОЭТ", "КОМПОЗИТОР", "АЛЬБОМ"));
+  lib.append(Song("20.12.1752", "EMINEM", "LOSE YOURSELF", "ПОЭТ", "КОМПОЗИТОР", "АЛЬБОМ"));
 
   int choice;
   string what;
@@ -51,17 +51,22 @@ int main(int argc, const char* argv[])
 "10.Выдать все песни данного исполнителя\n"
 "11. Кол-во песен в плейлисте\n"
 "12. Запись и чтение в файл\n"
+"13. Вывести по порядку весь вектор\n"
 "0. Выход\n\n"
 "Ваш выбор: ";
     cin >> choice;
     cin.ignore();
     cout << endl;
-
+    std::sort(std::begin(lib), std::end(lib), [](Song& p1, Song& p2)
+      {
+        return p1.getTitle() < p2.getTitle();
+      });
     switch (choice)
     {
     case 1:
       cout << "Укажите название песни: ";
       getline(cin, what);
+      transform(what.begin(), what.end(), what.begin(), toupper);
       it = lib.begin();
       do {
         it = lib.findByTitle(what, it);
@@ -90,6 +95,7 @@ int main(int argc, const char* argv[])
     case 3:
       cout << "Укажите исполнителя: ";
       getline(cin, what);
+      transform(what.begin(), what.end(), what.begin(), toupper);
       it = lib.begin();
       do {
         it = lib.findByAuthor(what, it);
@@ -103,6 +109,7 @@ int main(int argc, const char* argv[])
     case 4:
       inputSong(song);
       lib.append(song);
+   
       break;
     case 5:
       inputSong(song);
@@ -110,12 +117,10 @@ int main(int argc, const char* argv[])
         cout << "песня удалена\n";
       else
         cout << "песня не найдена\n";
+   
       break;
     case 6:
-      std::sort(std::begin(lib), std::end(lib), []( Song& p1,  Song& p2)
-        {
-          return p1.getTitle() < p2.getTitle();
-        });
+
       std::cout << std::endl;
       std::copy(std::begin(lib), std::end(lib), std::ostream_iterator<Song>(std::cout, "\n"));
       break;
@@ -133,6 +138,7 @@ int main(int argc, const char* argv[])
     case 8:
       cout << "Укажите поэта: ";
       getline(cin, what);
+      transform(what.begin(), what.end(), what.begin(), toupper);
       it = lib.begin();
       do {
         it = lib.findByPoet(what, it);
@@ -146,6 +152,7 @@ int main(int argc, const char* argv[])
     case 9:
       cout << "Укажите композитора: ";
       getline(cin, what);
+      transform(what.begin(), what.end(), what.begin(), toupper);
       it = lib.begin();
       do {
         it = lib.findByComposer(what, it);
@@ -159,6 +166,7 @@ int main(int argc, const char* argv[])
     case 10:
       cout << "Укажите исполнителя: ";
       getline(cin, what);
+      transform(what.begin(), what.end(), what.begin(), toupper);
       it = lib.begin();
       do {
         it = lib.findByAuthor(what, it);
@@ -175,10 +183,7 @@ int main(int argc, const char* argv[])
       cout << lib.numoOfsongs();
       break;
     case 12:
-      std::sort(std::begin(lib), std::end(lib), []( Song& p1,  Song& p2)
-        {
-          return p1.getTitle() < p2.getTitle();
-        });
+
       std::cout << std::endl;
       std::copy(std::begin(lib), std::end(lib), std::ostream_iterator<Song>(f, "\n"));
  
@@ -191,6 +196,9 @@ int main(int argc, const char* argv[])
         if (strm.eof()) break;            // проверяем конец файла
         cout << ss << '\n';            // выводим на экран
       }
+      break;
+    case 13:
+      lib.poporydku();
       break;
     case 0:
       break;

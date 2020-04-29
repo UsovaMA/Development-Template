@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iterator>
 #include <fstream>
+#include <cctype>
 #include<Windows.h>
 
 using namespace std;
@@ -54,6 +55,7 @@ public:
   Playlist();
   void append(const Song& Song);
   int numoOfsongs();
+  void poporydku();
   bool remove(const Song& Song);
   /*bool edit(const Song& Song, const Song& song1) {
     auto it = find(m_bc.begin(), m_bc.end(), Song);
