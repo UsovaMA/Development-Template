@@ -121,7 +121,6 @@ string Contact::returnSex() {
 }
 
 
-
 void Contact::create_input(Contact &new_contact) {
   cout << "Создание нового пользователя в телекнижке:" << endl;
   cout << "Фамилия: ";

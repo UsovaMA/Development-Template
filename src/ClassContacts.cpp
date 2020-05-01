@@ -53,17 +53,6 @@ void Contacts::create_add(const Contact& new_contact) {
   *this = new_book;
 }
 
-Contact& Contact::operator=(const Contact &c) {
-  surname = c.surname;
-  name = c.name;
-  patronymic = c.patronymic;
-  birthday = c.birthday;
-  tel_number = c.tel_number;
-  sex = c.sex;
-  favorites = c.favorites;
-  return *this;
-}
-
 int Contacts::kolvo_contacts() {
   int count;
   SetConsoleCP(1251);
@@ -170,10 +159,8 @@ int Contacts::search_by_surname_return_index(string _surname, string _name, stri
   }
 }
 
-void Contacts::add_to_favorites() {
-  string _surname, _name, _patronymic;
-  surname_input(_surname, _name, _patronymic);
-
+void Contacts::add_to_favorites(string _surname, string _name, string _patronymic) {
+  
   for (int i = 0; i < kolvo; i++) {
     if (base[i].returnSurname() == _surname) {
       if (base[i].returnName() == _name) {
@@ -235,7 +222,7 @@ void Contacts::change_contact_add(string _surname, string _name, string _patrony
   }
 }
 
-void Contacts::search_letter_input(char b) {
+void Contacts::search_letter_input(char &b) {
   cout << "Введите первую букву фамилии: ";
   cin >> b;
 }
@@ -266,30 +253,34 @@ void Contacts::delete_surname_add(Contact &contact) {
   Contact delete_("", "", "", "", "", "", 3);
   Contact offset;
 
-  for (int i = 0; i <= kolvo; i++) {
-    if (base[i].returnSurname() == contact.returnSurname()) {
-      if (base[i].returnName() == contact.returnName()) {
-        if (base[i].returnPatronymic() == contact.returnPatronymic()) {
-          int ii = i;
-          cout << "Контакт удален" << endl;
-          base[i] = delete_;
+  if (kolvo == 1) {
+    base[0] = delete_;
+  } else {
+    for (int i = 0; i <= kolvo; i++) {
+      if (base[i].returnSurname() == contact.returnSurname()) {
+        if (base[i].returnName() == contact.returnName()) {
+          if (base[i].returnPatronymic() == contact.returnPatronymic()) {
+            int ii = i;
+            cout << "Контакт удален" << endl;
+            base[i] = delete_;
 
-          for (ii; ii <= kolvo; ii++) {
-            offset = base[i];
-            base[i] = base[i + 1];
-            base[i + 1] = offset;
+            for (ii; ii <= kolvo; ii++) {
+              offset = base[i];
+              base[i] = base[i + 1];
+              base[i + 1] = offset;
+            }
+            kolvo--;
+            break;
           }
-          kolvo--;
-          break;
+          else {
+            cout << "Контакт не найден" << endl;
+            break;
+          }
         }
         else {
           cout << "Контакт не найден" << endl;
           break;
         }
-      }
-      else {
-        cout << "Контакт не найден" << endl;
-        break;
       }
     }
   }

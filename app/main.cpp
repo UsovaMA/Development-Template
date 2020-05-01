@@ -86,7 +86,7 @@ int main() {
                   if (act == 8) {
                     string _surname, _name, _patronymic;
                     test_s.surname_input(_surname, _name, _patronymic);
-                    test_s.add_to_favorites();
+                    test_s.add_to_favorites(_surname, _name, _patronymic);
                   }
                   else {
                     if (act == 9) {
@@ -122,7 +122,7 @@ int main() {
     cin >> work;
   } 
   
-  test.end();
+  test_s.end();
 
   system("pause");
 }

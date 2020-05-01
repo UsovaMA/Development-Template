@@ -33,13 +33,13 @@ public:
 
   void search_tel_number_add(string tel_number);
 
-  void add_to_favorites();              // добавить в избранные
+  void add_to_favorites(string _surname, string _name, string _patronymic);              // добавить в избранные
 
   // изменение контакта
   void change_contact_input(string& new_surname, string& new_name, string& new_patronymic, Contact& modifide_contact);
   void change_contact_add(string _surname, string _name, string _patronymic, const Contact& modifide_contact);
 
-  void search_letter_input(char b);
+  void search_letter_input(char &b);
   void search_letter_add(char b);
 
   void delete_surname_add(Contact &contact);
@@ -49,7 +49,7 @@ public:
   void end(); // обязательно в конце, перенос новых данных из массива в файл
 
 private:
-  Contact *base = new Contact [kolvo];
+  Contact *base /*= new Contact [kolvo]*/;
   int kolvo; 
 };
 
