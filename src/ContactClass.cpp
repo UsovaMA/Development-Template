@@ -9,6 +9,15 @@
 #include "..\include\ContactClass.h"
 #include "..\include\ContactClass.h"
 #include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
+#include "..\include\ContactClass.h"
 #include <string>
 #include <vector>
 #include <locale>
@@ -99,7 +108,13 @@ Contact& Contact::operator=(const Contact& c) {
 		status = c.status;
 		return *this;
 	}
-
+bool Contact::operator==(const Contact& c) {
+	bool res = 0;
+	if ((surname == c.surname) && (name == c.name) && (otch == c.otch) && (birthday == c.birthday) && (number == c.number) && (pol == c.pol) && (status == c.status)) {
+		res = 1;
+	}
+	return res;
+}
 
 Contacts& Contacts::operator =(const Contacts& c) {
 	if (number != 0 && number != c.number) {
@@ -224,6 +239,20 @@ void Contacts::create(const Contact &new_contact) {
 	result.book[result.number - 1].status = new_contact.status;
 	(*this) = result;
 }
+// общая функция с созданием и вводом
+void Contacts::input_and_create() {
+	Contact new_contact;
+	new_contact.input_all_data();         // ввод
+	(*this).create(new_contact);          // алгоритм вставки
+}
+void Contacts::input_and_create_testver1() {
+	Contact new_contact	("Грошева", "Дарья", "Дмитриевна", "+79113117958", "06.06.2001", "М", "Избран");     
+	(*this).create(new_contact);          // алгоритм вставки
+}
+void Contacts::input_and_create_testver2() {
+	Contact new_contact("Грошев", "Николай", "Дмитриевич", "+79537511791", "06.06.2001", "М", "Избран");;
+	(*this).create(new_contact);          // алгоритм вставки
+}
 void Contacts::numberreturn() {
 	int count = number;
 	cout << "Количество контактов в книге: " << count << endl;
@@ -254,17 +283,12 @@ void Contact::input_fio() {
 	cout << "Введите фио для поиска" << endl;
 	cin >> surname >> name >> otch;
 }
-void Contacts::find_by_fio(const Contact &new_contact) {
-	cout << "Вот что удалось найти по запросу..." << endl;
+int Contacts::find_by_fio(string surname,string name, string otch) {
 	for (int i = 0; i <= number; i++) {
-		if (book[i].surname == new_contact.surname) {
-			if (book[i].name == new_contact.name) {
-				if (book[i].otch == new_contact.otch) {
-					cout << "Данные контакта: " <<book[i].surname <<" "<<book[i].name<<" "<<book[i].otch << endl;
-					cout << "Номер телефона: " << book[i].number << endl;
-					cout << "День рождения: " << book[i].birthday << endl;
-					cout << "Пол: " << book[i].pol << endl;
-					cout << "В избранных: " << book[i].status << endl;
+		if (book[i].surname == surname) {
+			if (book[i].name == name) {
+				if (book[i].otch == otch) {
+					return i;
 				}
 				else {
 					cout << "Контакт не найден" << endl;
@@ -277,27 +301,39 @@ void Contacts::find_by_fio(const Contact &new_contact) {
 			}
 		}
 	}
-}void Contact::input_number() {
+}
+void Contacts::input_and_find() {
+	string surname; string name; string otch;
+	cout << "Введите фио для поиска" << endl;
+	cin >> surname >> name >> otch;
+	int i = (*this).find_by_fio(surname,name,otch);
+	output_info(i);
+}
+void Contact::input_number() {
 	cout << "Введите номер для поиска" << endl;
 	cin >> number;
 }
-void Contacts::input_and_number() {
-	Contact new_contact;
-	new_contact.input_number();
-	(*this).find_by_number(new_contact);
 
+void Contacts::input_and_number() {
+	cout << "Введите номер для поиска" << endl;
+	string number_tel;
+	cin >> number_tel;
+	int k =(*this).find_by_number(number_tel);
+	output_info(k);
  }
-void Contacts::find_by_number(const Contact &new_contact) {
-	cout << "Вы пытаетесь найти по номеру данный контакт: " << endl;
+int Contacts::find_by_number(const string new_number) {
 	for (int i = 0; i <= number; i++) {
-		if (book[i].number == new_contact.number) {
-			cout << "Данные контакта: " << book[i].surname << " " << book[i].name << " " << book[i].otch << endl;
-			cout << "Номер телефона: " << book[i].number << endl;
-			cout << "День рождения: " << book[i].birthday << endl;
-			cout << "Пол: " << book[i].pol << endl;
-			cout << "В избранных: " << book[i].status << endl;
+		if (book[i].number == new_number) {
+			return i;
 		}
 	}
+}
+void Contacts::output_info(int i) {
+	cout << "Данные контакта: " << book[i].surname << " " << book[i].name << " " << book[i].otch << endl;
+	cout << "Номер телефона: " << book[i].number << endl;
+	cout << "День рождения: " << book[i].birthday << endl;
+	cout << "Пол: " << book[i].pol << endl;
+	cout << "В избранных: " << book[i].status << endl;
 }
 void Contacts::change_by_fio(const Contact &new_contact) {
 	cout << "Вы изменяете данный контакт: " << endl;
@@ -385,28 +421,13 @@ void Contacts::input_and_change() {
 	(*this).change_by_fio(new_contact);
 	cout << "Контакт изменен" << endl;
 }
-void Contacts::input_and_find() {
-	Contact new_contact;
-	new_contact.input_fio();
-	(*this).find_by_fio(new_contact);
-}
-// общая функция с созданием и вводом
-void Contacts::input_and_create() {
-	Contact new_contact;
-	new_contact.input_all_data();         // ввод
-	(*this).create(new_contact);          // алгоритм вставки
-}
-void Contacts::search_by_first_letter() {
-	cout << "Введите первую букву фамилии по которой будет оформляться поиск" << endl;
-	string firstletter;
-	cin >> firstletter;
+
+
+int Contacts::search_by_first_letter(string firstletter) {
+
 	for (int i = 0; i <= number; i++) {
 		if ((firstletter.substr(0, 1)) == book[i].surname.substr(0, 1)) {
-			cout << "Данные контакта: " << book[i].surname << " " << book[i].name << " " << book[i].otch << endl;
-			cout << "Номер телефона: " << book[i].number << endl;
-			cout << "День рождения: " << book[i].birthday << endl;
-			cout << "Пол: " << book[i].pol << endl;
-			cout << "В избранных: " << book[i].status << endl;
+			return i;
 		}
 	}
 }
@@ -426,14 +447,12 @@ void Contacts::retrun_all_favourites() {
 	}
 }
 void Contacts::delete_from_favourites(const Contact &new_contact) {
-	cout << "Вы удаляете данный контакт из избранных: " << endl;
-	cout << "Удаление..." << endl;
+
 	for (int i = 0; i <= number; i++) {
 		if (book[i].surname == new_contact.surname) {
 			if (book[i].name == new_contact.name) {
 				if (book[i].otch == new_contact.otch) {
 					book[i].status = "Не имеет статуса";
-					cout << "Готово!" << endl;
 				}
 				
 			}

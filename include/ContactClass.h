@@ -17,6 +17,13 @@ public:
 	Contact(string _surname, string _name, string _otch, string _number, string _birthday, string _pol, string _status);//тест
 
 	~Contact();//тест
+	friend bool operator==(const Contact& a, const Contact& c) {
+		bool res = 0;
+		if ((a.surname == c.surname) && (a.name == c.name) && (a.otch == c.otch) && (a.birthday == c.birthday) && (a.number == c.number) && (a.pol == c.pol) && (a.status == c.status)) {
+			res = 1;
+		}
+		return res;
+	}
 
 	//методы
 	/*Класс должен предоставлять следующие операции: ,
@@ -62,9 +69,10 @@ public:
 		res.status = this->status;
 		return res.status;
 	}
-	
+	//тест
 	void input_all_data();//
 	Contact& operator =(const Contact& c);
+	bool operator ==(const Contact& c);
 	void input_fio();
 	void input_number();
 private:
@@ -92,23 +100,30 @@ public:
 	~Contacts();
 
 	Contacts& operator =(const Contacts& c);
-	/*Contact *base = new Contact[number];   херня это какая-то*/
-
-  //void create();
-	void find_by_fio(const Contact &new_contact);
+	int Contacts::getNumber() {
+		Contacts res;
+		res.number = this->number;
+		return res.number;
+	}
+	int find_by_fio(const Contact &new_contact);
 	void input_and_number();
-	void find_by_number(const Contact & new_contact);
+	int find_by_number(const string new_number);
+	//int find_by_number(const Contact & new_contact);
+	void output_info(int index);
 	void change_by_fio(const Contact &new_contact);
 	void add_to_favourites(const Contact & new_contact);
 	void add_fvv();
 	void create(const Contact &new_contact);
 	void numberreturn();
 	void input_and_create();
+	void input_and_create_testver1();
+	void input_and_create_testver2();
+	int find_by_fio(string surname, string name, string otch);
 	void input_and_find();
 	void fill_mass_from_file();//
 	void outputall();
 	void fill_file_from_mass();//
-	void search_by_first_letter();
+	int search_by_first_letter(string firstletter);
 	void retrun_all_favourites();
 	void delete_from_favourites(const Contact & new_contact);
 	void input_and_fvv();

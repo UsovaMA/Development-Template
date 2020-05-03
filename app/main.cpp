@@ -10,6 +10,7 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
+
 	kniga.fill_mass_from_file();
 	start:
 	cout << "_______________________________________" << endl;
@@ -49,6 +50,7 @@ int main() {
 	cout << "|             |_________|              |" << endl;
 	cout << "|______________________________________|" << endl;
 	int input;
+	string firstletter;
 	cin >> input;
 	system("cls");
 	switch (input) {
@@ -70,7 +72,9 @@ int main() {
 		goto start;
 		break;
 	case 5:
-		kniga.search_by_first_letter();
+		cout << "¬ведите первую букву фамилии по которой будет оформл€тьс€ поиск" << endl;
+		cin >> firstletter;
+		kniga.output_info(kniga.search_by_first_letter(firstletter));
 		goto start;
 		break;
 	case 6:
