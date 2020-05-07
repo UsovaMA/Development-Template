@@ -27,10 +27,7 @@ Hex::Hex(string number, int size_) {
 // Реализация методов класса и вспомогательных функций
 
 unsigned char& Hex::operator[](const int index) {
-	if (index < 0 || index >= this->size) {
-		cout << "Out of range, returned [0] element!" << endl;
-		return Number[0];
-	}
+	if (index < 0 || index >= this->size) throw std::out_of_range("Out of range!");
 	return Number[index];
 }
 

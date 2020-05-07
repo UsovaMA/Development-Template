@@ -21,8 +21,7 @@ TEST(Class_Hex, operator_of_index_true) {
 
 TEST(Class_Hex, operator_of_index_false) {
 	Hex a("3B5", 3);
-	char b = a[10];
-	EXPECT_EQ('5', b);
+	EXPECT_ANY_THROW(a[10]);
 }
 
 TEST(Class_Hex, operator_of_equality_true) {
