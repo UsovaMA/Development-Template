@@ -1,28 +1,15 @@
-#include "Octal.h"
-int main() {
+#include "ProcCenter.h"
+#include "Bancai.h"
 
-  Octal a = "4";
-  Octal b = "45";
-  Octal c, f;
-  cout << "a =  " ;
-  cout << a;
-  cout << "b =  ";
-  cout << b;
-  cout << "a - b= " ;
-  c = a - b;
-  cout << c;
-  cout << "a + b= " ;
-  c = a + b;
-  cout << c;
-  
-  if (a == b) {
-    cout << " a pavno b";
-  }
-  else {
-    cout << "a ne ravno b";
-  }
 
-  getchar();
-  getchar();
-  return 0;
+int main() 
+{
+  setlocale(LC_ALL, "Rus");
+  Dop c("misha","alim","ser","0001",300,0000,0,0);
+  ProcCenter cl(c);
+  Bancai de;
+  de.Start(cl);
+
+ 
 }
+
