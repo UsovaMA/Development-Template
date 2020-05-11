@@ -2,174 +2,174 @@
 #include <iostream>
 #include <fstream>
 #include <clocale>
-#include "Contacts.h"
-#include "AllContact.h"
-#include "FUN.h"
-#include "windows.h"
+#include <time.h>
+#include "Film_show.h"
+#include "Room.h"
+#include "Format_room.h"
+#include "Calendar.h"
+#include "Cinema.h"
 using namespace std;
+void menu(int v) {
+  if (v == 0) {
+    cout << " ________________" << endl << endl;
+    cout << "|     Meny:      |" << endl << endl;
+    cout << "| 0-Exit         |" << endl << endl;
+    cout << "| 1-Cinema       |" << endl << endl;
+    cout << "| 2-Ticket Office|" << endl << endl;
+    cout << "|________________|" << endl << endl;
+  }
+  if (v == 1) {
+    cout << " ________________________" << endl << endl;
+    cout << "|     Meny:              |" << endl << endl;
+    cout << "| 0-Exit                 |" << endl << endl;
+    cout << "| 1-Add room             |" << endl << endl;
+    cout << "| 2-View all rooms       |" << endl << endl;
+    cout << "| 3-Add show film        |" << endl << endl;
+    cout << "| 4-View all show films  |" << endl << endl;
+    cout << "| 5-Next                 |" << endl << endl;
+    cout << "|________________________|" << endl << endl;
+  }
+}
+int dday() {
+  time_t now = time(0);
+  tm *ltm = localtime(&now);
+  return (ltm->tm_mday);
+}
+
 
 int main() {
-  setlocale(LC_ALL, "Rus");
-  SetConsoleCP(1251);
-  SetConsoleOutputCP(1251);
-  int i = 0;
-  Contact a;
-  AllContact A;
-  cout << "Hellow, it is a programm Contacts." << endl;
-  cout << endl;
-  string sdop1, sdop2, sdop3;
-  int idop, i2, i3;
-  while (i != 10) {
-    switch (i) {
-    case 0:
-      cout << " ___________________ " << endl;
-      cout << "| You can input:    |" << endl;
-      cout << "|1- for txt document|" << endl;
-      cout << "|2- by yourself     |" << endl;
-      cout << "|3- Exit            |" << endl;
-      cout << "|___________________|" << endl;
-      cin >> i;
-      if (i == 1) {
-          A.read_from_file();
+  Cinema ci;
+  Format_room fr;
+  Room r;
+  Film_show fs;
+  cout << "Cinema" << endl << endl;
+  cout << "You can do cinema(1), or use pattern(0)" << endl;
+  bool bv;
+  string nf, time;
+  int iv, iv1, iv2, ivd;
+  cin >> bv;
+  if (bv) {
+    iv = 1;
+    while (iv != 5) {
+      menu(1);
+      cin >> iv;
+      if (iv == 0) return 0;
+      if (iv == 1) {
+        cin >> r;
+        ci.plus_Room(r);
       }
-      while (i == 2) {
-        if (A.getSize() == 0)exampleIn();
-        cin >> a;
-        A.DopСon(a);
-        cout << "Do you want input again? (0-no, 1-yes)";
-        cin >> i;
-        if (i == 1) i = 2;
-        if (i == 0) i = 1;
+      if (iv == 2) {
+        ci.All_Room();
       }
-      if (i == 3) i = 10;
-      A.Alphabet();
-      break;
-    case 1:
-      cout << " _____________________________ " << endl;
-      cout << "|  You can:                   |" << endl;
-      cout << "|1- find contact              |" << endl;
-      cout << "|2- how many contacts         |" << endl;
-      cout << "|3- last step                 |" << endl;
-      cout << "|4- next step (view contacts) |" << endl;
-      cout << "|5- Exit                      |" << endl;
-      cout << "|_____________________________|" << endl;
-      cin >> i;
-      i2 = -1;
-      if (i == 3)  i3 = 0;
-      if (i == 5)  i3 = 10;
-      if (i == 1) {
-        cout << " ___________________" << endl;
-        cout << "|  By...            |" << endl;
-        cout << "|1-phone number     |" << endl;
-        cout << "|2-name             |" << endl;
-        cout << "|___________________|" << endl;
-        i2 = 0;
-        while (i2 == 0) {
-          cin >> i2;
+      if (iv == 3) {
+        cout << "Enter movie title ";
+        cin >> nf;
+        cout << "Enter time (ex. 09:09) ";
+        cin >> time;
+        cout << "Enter num of room ";
+        cin >> iv1;
+        cout << "Enter day of film ";
+        cin >> iv2;
+        while (iv1 > ci.get_s_r() + 1) {
+          cout << "Error, such number does not exist.Enter num of room ";
+          cin >> iv1;
         }
-        if (i2 == 1) {
-          cout << "Enter phone number- ";
-          cin >> sdop1;
-          idop = -1;
-          for (int I = 0; I < A.getSize(); I++) {
-            if (sdop1 == A.getPH(I)) {
-              idop = I;
-              break;
-            }
+        fs.Upgr(nf, iv2, iv1-1, time, ci.get_Room(iv1-1));
+        ci.Plus_FSC(fs);
+      }
+      if (iv == 4) {
+        ci.All_fs();
+      }
+      if (iv == 5) iv = 5;
+    }
+  } else {
+    fr.UpFormat_room(7, 5, 20);
+    r.UpRoom(220, 390, fr);
+    ci.plus_Room(r);
+
+    fr.UpFormat_room(5, 3, 10);
+    r.UpRoom(200, 300, fr);
+    ci.plus_Room(r);
+
+    fr.UpFormat_room(10, 3, 20);
+    r.UpRoom(250, 340, fr);
+    ci.plus_Room(r);
+
+    int d = dday();
+    fs.Upgr("Hunger games", d, 0, "10:00", ci.get_Room(0));
+    ci.Plus_FSC(fs);
+
+    fs.Upgr("Hachiko", d + 1, 0, "12:00", ci.get_Room(1));
+    ci.Plus_FSC(fs);
+
+    fs.Upgr("Men in Black", d + 2, 0, "18:20", ci.get_Room(2));
+    ci.Plus_FSC(fs);
+
+    fs.Upgr("T-34", d, 0, "11:00", ci.get_Room(0));
+    ci.Plus_FSC(fs);
+
+    fs.Upgr("Hachiko", d + 1, 0, "10:00", ci.get_Room(1));
+    ci.Plus_FSC(fs);
+
+    fs.Upgr("Men in Black", d + 2, 0, "16:00", ci.get_Room(2));
+    ci.Plus_FSC(fs);
+
+    fs.Upgr("T-34", d, 0, "20:00", ci.get_Room(0));
+    ci.Plus_FSC(fs);
+
+    fs.Upgr("Hunger games", d + 1, 0, "20:00", ci.get_Room(1));
+    ci.Plus_FSC(fs);
+
+    fs.Upgr("Men in Black", d + 2, 0, "20:00", ci.get_Room(2));
+    ci.Plus_FSC(fs);
+  }
+  iv = 1;
+  while (iv != 0) {
+    cout << " ________________" << endl << endl;
+    cout << "|     Meny:      |" << endl << endl;
+    cout << "| 0-Exit         |" << endl << endl;
+    cout << "| 1-Cinema       |" << endl << endl;
+    cout << "| 2-Ticket Office|" << endl << endl;
+    cout << "|________________|" << endl << endl;
+    cin >> iv;
+    if (iv == 0) return 0;
+    if (iv == 1) {
+      //  Cinema
+      ivd = iv;
+      while (ivd != 5) {
+        menu(1);
+        cin >> ivd;
+        if (ivd == 0) return 0;
+        if (ivd == 1) {
+          cin >> r;
+          ci.plus_Room(r);
+        }
+        if (ivd == 2) {
+          ci.All_Room();
+        }
+        if (ivd == 3) {
+          cout << "Enter movie title ";
+          cin >> nf;
+          cout << "Enter time (ex. 09:09) ";
+          cin >> time;
+          cout << "Enter num of room ";
+          cin >> iv1;
+          cout << "Enter day of film ";
+          cin >> iv2;
+          while (iv1 > ci.get_s_r() + 1) {
+            cout << "Error, such number does not exist.Enter num of room ";
+            cin >> iv1;
           }
-          if (idop == -1) {
-            cout << "Contact not found" << endl;
-            i3 = 1;
-            break;
-          } else {
-            i3 = 2;
-            A.to_screen(idop);
-          }
+          fs.Upgr(nf, iv2, iv1 - 1, time, ci.get_Room(iv1 - 1));
+          ci.Plus_FSC(fs);
         }
-        if (i2 == 2) {
-          cout << "Enter name(surname, name, patronymic)- ";
-          cin >> sdop1 >> sdop2 >> sdop3;
-          idop = A.i_poisk_fio(sdop2, sdop1, sdop3);
-          if (idop == -1) {
-            cout << "Contact not found" << endl;
-            i3 = 1;
-          } else {
-            A.to_screen(idop);
-            i3 = 2;
-          }
+        if (ivd == 4) {
+          ci.All_fs();
         }
+        if (ivd == 5) ivd = 5;
       }
-      // 1/2
-      if (i == 2) {
-        cout << A.getSize() << " - sum of contacts" << endl;
-        i3 = 1;
-      }
-      // будет 1
-      if (i == 4)  i3 = 3;
-      i = i3;
-      A.Alphabet();
-      break;
-    case 2:
-      cout << " _________________________________" << endl;
-      cout << "|  You can do whith this contact: |" << endl;
-      cout << "|1- delete contact                |" << endl;
-      cout << "|2- add a contact to the list     |" << endl;
-      cout << "|3- delete contact in list        |" << endl;
-      cout << "|4- change contact                |" << endl;
-      cout << "|5- comeback                      |" << endl;
-      cout << "|_________________________________|" << endl;
-      cin >> i2;
-      if (i2 == 5) { i = 1;
-      } else {
-        if (i2 == 1) {
-          A.DelСon(idop);
-          cout << "|contact_deleted|" << endl;
-          i = 1;
-        }
-        if (i2 == 2) {
-          A.imFav(idop, 1);
-          cout << "|contact added in list|" << endl;
-        }
-        if (i2 == 3) {
-          A.imFav(idop, 0);
-          cout << "|contact deleted in list|" << endl;
-        }
-        if (i2 == 4) {
-          A.ChangeC(idop);
-        }
-      }
-      A.Alphabet();
-      break;
-    case 3:
-      cout << " ______________________________________" << endl;
-      cout << "|  You can bring out:                  |" << endl;
-      cout << "|1- all contact (consol)               |" << endl;
-      cout << "|2- contact from the favorite (consol) |" << endl;
-      cout << "|3- all contact (txt file)             |" << endl;
-      cout << "|4- last step                          |" << endl;
-      cout << "|5- exit                               |" << endl;
-      cout << "|______________________________________|" << endl;
-      cin >> i2;
-      if (i2 == 1) {
-        for (int I = 0; I < A.getSize(); I++) {
-          A.to_screen(I);
-        }
-      }
-      if (i2 == 2) {
-        for (int I = 0; I < A.getSize(); I++) {
-          if (A.getFav(I) == 1) A.to_screen(I);
-        }
-      }
-      if (i2 == 3) {
-        A.imput_in_file();
-      }
-      if (i2 == 4) i = 1;
-      if (i2 == 5) i = 10;
-      break;
-    case 4:
-    default:
-      i = 0;
-      break;
+    } else {
+      ci.by_b();
     }
   }
   system("pause");
