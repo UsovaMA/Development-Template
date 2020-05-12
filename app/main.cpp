@@ -1,6 +1,15 @@
-#include "add.h"
-#include <iostream>
+#include "ProcCenter.h"
+#include "Bancomat.h"
 
-int main() {
-  std::cout << "5 + 5 = " << add(5, 5) << std::endl;
+
+int main() 
+{
+  setlocale(LC_ALL, "Rus");
+  ProcCenter c1("name","sec","last","1234",700000,1234);
+  ProcCenterVec c2(c1);
+  Bancomat m;
+  m.Start(c2);
+
+ 
 }
+
