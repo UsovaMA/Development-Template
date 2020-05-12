@@ -1,6 +1,10 @@
+<<<<<<< Updated upstream
 #include "add.h"
+=======
+#include "Credit.h"
+>>>>>>> Stashed changes
 #include <iostream>
 
 int main() {
-  std::cout << "5 + 5 = " << add(5, 5) << std::endl;
+  
 }
