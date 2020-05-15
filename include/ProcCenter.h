@@ -19,7 +19,9 @@ class Dop
 public:
   friend class Bancai;
   friend class ProcCenter;
+
   Dop(string Name_x, string Familia_x, string Ochestvo_x, string NomerCard_x, int summa_x, int PIN_x, bool bloked_x, int _Poca_ne_block);
+  Dop();
   ~Dop() {};
   void setDop(string Name_x, string Familia_x, string Ochestvo_x, string NomerCard_x, int summa_x, int PIN_x, bool bloked_x, int _Poca_ne_block);
 
@@ -33,6 +35,7 @@ private:
   bool bloked;
   int Poca_ne_block;
   
+  
 };
 
 
@@ -41,15 +44,16 @@ public:
   friend class Bancai;
   friend class Dop;
   ProcCenter() {}
-  ~ProcCenter() {}
+  ~ProcCenter() { delete[]Chel; }
   void AddPers();
+  void AddPers(Dop a);
   ProcCenter(const Dop& d);
-  void SetINF(vector <Dop> _Chel) {
+ /* void SetINF(Dop * _Chel) {
     Chel = _Chel;
-  }
+  }*/
 private:
-  vector <Dop> Chel;
-  
+  Dop* Chel = new Dop[100];
+  int next = 0;
 };
 
 

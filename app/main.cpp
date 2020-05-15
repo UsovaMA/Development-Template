@@ -5,7 +5,7 @@
 int main() 
 {
   setlocale(LC_ALL, "Rus");
-  Dop c("misha","alim","ser","0001",300,0000,0,0);
+  Dop c("misha", "alim", "ser", "0001", 3000, 0000, 0, 0);
   ProcCenter cl(c);
   Bancai de;
   de.Start(cl);

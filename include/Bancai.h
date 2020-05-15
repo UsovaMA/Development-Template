@@ -30,11 +30,22 @@ public:
   void Vzat_Card(ProcCenter& c);
   void Start(ProcCenter& c);
   void Chek(ProcCenter& c);
+  int Check_sum(ProcCenter& c);
   void Finde_card(ProcCenter& c);
   void Menu(ProcCenter& c);
   void Schet_Chel(ProcCenter& c);
   void Vzat_dengi(ProcCenter& c);
   void Vidat_denfi(ProcCenter& c);
+  void VVod_NOMERA_FOR_TEST(string a);
+  int Vidat_dengi_prog(ProcCenter& c);
+  void Check_vnes(ProcCenter& c);
+  int Vzat_dengi_prog(ProcCenter& c);
+  int Finde_card_prog(ProcCenter& c);
+  void Finde_card_Chel(ProcCenter& c);
+  void Check_snam(ProcCenter& c);
+  void VVOD_SUUMMi_SNAT_FOR_TEST(int a);
+  void qwertyuiop(ProcCenter& c);
+  void CHECK_FOR_VVODA_DENEG(int a);
 
 
 private:
@@ -49,6 +60,7 @@ private:
   int nomer;
   int Snat;
   int Vvesti;
+
 
 };
 
