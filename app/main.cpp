@@ -1,6 +1,8 @@
 #include "CinemaClass.h"
 #include <iostream>
-
+#include <fstream>
+#include <Windows.h>
 int main() {
-  std::cout << "5 + 5 = " << add(5, 5) << std::endl;
+  TicketOffice lol;
+
 }
