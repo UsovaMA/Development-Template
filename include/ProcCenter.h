@@ -24,6 +24,7 @@ public:
   Dop();
   ~Dop() {};
   void setDop(string Name_x, string Familia_x, string Ochestvo_x, string NomerCard_x, int summa_x, int PIN_x, bool bloked_x, int _Poca_ne_block);
+  Dop& operator=(const Dop& vec);
 
 private:
   string Name;
@@ -48,12 +49,11 @@ public:
   void AddPers();
   void AddPers(Dop a);
   ProcCenter(const Dop& d);
- /* void SetINF(Dop * _Chel) {
-    Chel = _Chel;
-  }*/
+
 private:
-  Dop* Chel = new Dop[100];
   int next = 0;
+  Dop* Chel;
+  
 };
 
 

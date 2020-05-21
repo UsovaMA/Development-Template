@@ -20,7 +20,8 @@ TEST(Bancai_2_1, Proverka_nahogdtnia_carti) {
   Dop c("misha", "alim", "ser", "0001", 3000000, 0000, 0, 0);
   Dop g("123", "123", "1234", "0002", 3000000, 0002, 0, 0);
   
-  ProcCenter cl(c);
+  ProcCenter cl;
+  cl.AddPers(c);
   cl.AddPers(g);
   Bancai de;
   int b;
@@ -33,7 +34,8 @@ TEST(Bancai_2_1, Proverka_nahogdtnia_carti_2) {
   Dop c("misha", "alim", "ser", "0001", 3000000, 0000, 0, 0);
   Dop g("123", "123", "1234", "0002", 3000000, 0002, 0, 0);
 
-  ProcCenter cl(c);
+  ProcCenter cl;
+  cl.AddPers(c);
   cl.AddPers(g);
   Bancai de;
   int b;
@@ -44,7 +46,7 @@ TEST(Bancai_2_1, Proverka_nahogdtnia_carti_2) {
 }
 TEST(Bancai_2_2, Proverka_snatia_deneg_kogda_vse_ok) {
   Dop c("misha", "alim", "ser", "0001", 6000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -55,7 +57,7 @@ TEST(Bancai_2_2, Proverka_snatia_deneg_kogda_vse_ok) {
 }
 TEST(Bancai_2_2, Proverka_snatia_deneg_kogda_vvedennoe_chislo_ne_crato_10) {
   Dop c("misha", "alim", "ser", "0001", 6000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -66,7 +68,7 @@ TEST(Bancai_2_2, Proverka_snatia_deneg_kogda_vvedennoe_chislo_ne_crato_10) {
 }
 TEST(Bancai_2_2, Proverka_snatia_deneg_kogda_karta_blokted) {
   Dop c("misha", "alim", "ser", "0001", 6000, 0000, true, 3);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -77,7 +79,7 @@ TEST(Bancai_2_2, Proverka_snatia_deneg_kogda_karta_blokted) {
 }
 TEST(Bancai_2_2, Proverka_snatia_deneg__kogda_na_schete_nedostatochno_sredstv) {
   Dop c("misha", "alim", "ser", "0001", 5000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -88,7 +90,7 @@ TEST(Bancai_2_2, Proverka_snatia_deneg__kogda_na_schete_nedostatochno_sredstv) {
 }
 TEST(Bancai_2_2, Proverka_snatia_deneg__kogda_na_odin_vid_cupur_zaconcilsa) {
   Dop c("misha", "alim", "ser", "0001", 5000000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -99,7 +101,7 @@ TEST(Bancai_2_2, Proverka_snatia_deneg__kogda_na_odin_vid_cupur_zaconcilsa) {
 }
 TEST(Bancai_2_2, Proverka_snatia_deneg_kogda_v_bancomate_conchikis_vse_dengi) {
   Dop c("misha", "alim", "ser", "0001", 3000000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -110,7 +112,7 @@ TEST(Bancai_2_2, Proverka_snatia_deneg_kogda_v_bancomate_conchikis_vse_dengi) {
 }
 TEST(Bancai_2_3, Proverka_vvod_deneg_1) {
   Dop c("misha", "alim", "ser", "0001", 3000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -121,7 +123,7 @@ TEST(Bancai_2_3, Proverka_vvod_deneg_1) {
 }
 TEST(Bancai_2_3, Proverka_vvod_deneg_2) {
   Dop c("misha", "alim", "ser", "0001", 3000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -132,7 +134,7 @@ TEST(Bancai_2_3, Proverka_vvod_deneg_2) {
 }
 TEST(Bancai_2_3, Proverka_vvod_deneg_3) {
   Dop c("misha", "alim", "ser", "0001", 3000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -143,7 +145,7 @@ TEST(Bancai_2_3, Proverka_vvod_deneg_3) {
 }
 TEST(Bancai_2_3, Proverka_vvod_deneg_kogda_carta_zablok) {
   Dop c("misha", "alim", "ser", "0001", 3000, 0000, true, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;
@@ -154,7 +156,7 @@ TEST(Bancai_2_3, Proverka_vvod_deneg_kogda_carta_zablok) {
 }
 TEST(Bancai_2_3, Proverka_vvod_deneg_chislo_nelza_snat_tak_kak_ne_kratno) {
   Dop c("misha", "alim", "ser", "0001", 3000, 0000, 0, 0);
-  ProcCenter cl(c);
+  ProcCenter cl;
   Bancai de;
   cl.AddPers(c);
   int b;

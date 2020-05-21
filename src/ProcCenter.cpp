@@ -1,5 +1,6 @@
 #include "..\include\ProcCenter.h"
 #include "..\include\ProcCenter.h"
+#include "..\include\ProcCenter.h"
 
 #include "ProcCenter.h"
 
@@ -48,8 +49,27 @@ void Dop::setDop(string Name_x, string Familia_x, string Ochestvo_x, string Nome
 
 }
 
+Dop& Dop::operator=(const Dop& vec)
+{
+  this->Name = vec.Name;
+  this->Familia = vec.Familia;
+  this->Ochestvo = vec.Ochestvo;
+  this->NomerCard = vec.NomerCard;
+  this->PIN = vec.PIN;
+  this->summa = vec.summa;
+  this->Poca_ne_block = vec.Poca_ne_block;
+  this->bloked = vec.Poca_ne_block;
+  return *this;
+}
+
 void ProcCenter::AddPers()
 {
+  Dop* new_Chel = new Dop[next + 1];
+  if (next != 0) {
+    for (int i = 0; i < next; ++i) {
+      new_Chel[i] = Chel[i];
+    }
+  }
   string Namee, Famil, Otchestvo,NomerCard;
   int summa;
   int PIN;
@@ -75,13 +95,20 @@ cin >> NomerCard;
 
   Poca_ne_block = 0;
   
-  Chel[next].setDop(Namee, Famil, Otchestvo, NomerCard, summa, PIN, block, Poca_ne_block);
+  new_Chel[next].setDop(Namee, Famil, Otchestvo, NomerCard, summa, PIN, block, Poca_ne_block);
   next++;
-  
+
+  Chel = new_Chel;
  
 }
 void ProcCenter::AddPers(Dop a)
 {
+  Dop* new_Chel = new Dop[next + 1];
+  if (next != 0) {
+    for (int i = 0; i < next; ++i) {
+      new_Chel[i] = Chel[i];
+    }
+  }
   string Namee, Famil, Otchestvo, NomerCard;
   int summa;
   int PIN;
@@ -101,10 +128,10 @@ void ProcCenter::AddPers(Dop a)
   block = a.bloked;
   Poca_ne_block = a.Poca_ne_block;
 
-  Chel[next].setDop(Namee, Famil, Otchestvo, NomerCard, summa, PIN, block, Poca_ne_block);
+  new_Chel[next].setDop(Namee, Famil, Otchestvo, NomerCard, summa, PIN, block, Poca_ne_block);
   next++;
 
-
+  Chel = new_Chel;
 }
 ProcCenter::ProcCenter(const Dop& d)
 {
