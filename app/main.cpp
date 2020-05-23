@@ -3,14 +3,12 @@
 #include <fstream>
 #include <clocale>
 #include "Hex.h"
-#include "Header.h"
 using namespace std;
 
 int main() {
   int i = 0;
   cout << "Hexadecimal numbers" << endl;
-  Hex a("5FA", 0), b("5FA", 0);
-
+  Hex a("5FA"), b("5FA");
   while (i != 4) {
     switch (i) {
     case 0:
