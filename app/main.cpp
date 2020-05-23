@@ -6,7 +6,6 @@ using namespace std;
 int main()
 {
   setlocale(LC_ALL, "rus");
-  try {
     cout << "¬ведите координаты меню в виде x y:  ";
     int x = 2, y = 2;
     cin >> x >> y;
@@ -24,15 +23,16 @@ int main()
     {
       cin >> mn[i];
     }
+    system("cls");
     Menu m(x, y, size, num, mn);
     m.Display();
     int p = m.SelectionMenu();
     m.Clear();
     system("cls");
     cout << p << endl;
-  }
+  
 
-  catch (ExMenu exp)
+  /*catch (ExMenu exp)
   {
     switch (exp.type)
     {
@@ -47,31 +47,13 @@ int main()
     default:
       break;
     }
-  }
+  }*/
 
-  try
-  {
+  
     Menu m("Menu.txt");
     m.Display();
     int k = m.SelectionMenu();
     m.Clear();
     cout << k;
-  }
-  catch (ExMenu exp)
-  {
-    switch (exp.type)
-    {
-    case(wrongSize):
-      cout << "WrongSize\n";
-      cout << "Error on size = " << exp.intSize;
-      break;
-    case(outofAr):
-      cout << "Arror: Size Array\n";
-      cout << "Size Array != Num String: Size Array = " << exp.intSize;
-      break;
-    default:
-      break;
-    }
-  }
   return 0;
 }

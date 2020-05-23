@@ -80,7 +80,7 @@ Menu::Menu(int x, int y, int sz, int num, std::string* Mn) // конструктор с пара
     s += menu[i].length();
   }
   if (s > size)
-    throw ExMenu(wrongSize, size); // размер меню и размер строки не совпадают
+    throw std::logic_error("Input error: menu length cannot be this!");
 }
 
 Menu::Menu(const Menu& m) // копирование
@@ -111,11 +111,11 @@ Menu::Menu(std::string nameMenu) // конструктор с параметрами из файла
       s += menu[i].length();
     }
     else
-      throw ExMenu(outofAr, numMenu); // выход за пределы массива
+      throw std::logic_error("Input error: count of menu positions cannot be a negative value!");
   }
 
   if (s > size)
-    throw ExMenu(wrongSize, s); // размер меню и размер строки не совпадают
+    throw std::logic_error("Input error: menu length cannot be this!");
 
   ostr.close();
 

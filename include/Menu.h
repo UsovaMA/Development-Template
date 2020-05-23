@@ -2,6 +2,8 @@
 #define INCLUDE_Menu_H_
 #include <iostream>
 #include <Windows.h>
+#include <string.h>
+#include <string>
 
 enum ExceptionType { wrongSize, outofAr};
 struct ExMenu 
