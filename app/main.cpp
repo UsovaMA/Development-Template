@@ -5,7 +5,8 @@ using namespace std;
 
 int main() {
   setlocale(LC_ALL, "Russian");
-  
+  SetConsoleCP(1251);
+  SetConsoleOutputCP(1251);
   char str[300];
   TextEditor t1;
   t1.options();
