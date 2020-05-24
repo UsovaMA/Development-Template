@@ -15,9 +15,6 @@ TEST(TextEditor, constructorinitialization) {
   ASSERT_NO_THROW(TextEditor t(45, 18,10));
 }
 
-TEST(TextEditor, constructordeff) {
-  ASSERT_NO_THROW(TextEditor t());
-}
 
 TEST(TextEditor, stroka) {
   TextEditor t;

@@ -16,18 +16,19 @@ private:
   int len;
 public:
   void position(int xpos, int ypos);
+  int options();
   void txt1();
   void leninit();
   void txt2();
   int getX();
   int getY();
   int getlen();
-  void show(char *str, int gEtx, int gEty);
-  void textstr(char *str, int k, int gEtx, int gEty);
-  void textstredit(char* str, int k, int gEtx, int gEty);
+  void show(char *str);
+  void textstr(char *str, int k);
+  void textstredit(char* str, int k);
   TextEditor();
-  TextEditor(int _x, int _y, int _len);
   TextEditor(const TextEditor &c);
+  TextEditor(int _x, int _y, int _len);
   bool operator==(const TextEditor& c);
   friend bool operator==(const TextEditor &left, const TextEditor &right) {
     bool res = false;
