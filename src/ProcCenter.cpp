@@ -1,36 +1,77 @@
 
+
 #include "ProcCenter.h"
 
 
-vector<ProcCenter> buff;
-ProcCenter::ProcCenter(string name, string middleName, string lastName, string cardNumber, int balance, int pin)
+
+Sup::Sup(string name, string middlename, string lastname, int cardnumber, int balance, int pin, bool bloked, int incorrectpintimes)
 {
-  string Name, MiddleName, LastName, CardNumber;
-  int Balance, PIN;
+  string Name, MiddleName, LastName ;
+  int Balance, PIN, Incorectpintimes, CardNumber;
+  bool Blocked;
   Name = name;
-  LastName = lastName;
-  MiddleName= middleName;
+  MiddleName = middlename;
+  LastName = lastname;
+  CardNumber= cardnumber;
   Balance= balance;
   PIN= pin;
-  SetProcC(Name, MiddleName, LastName, CardNumber, Balance, PIN);
+  Blocked= bloked;
+  Incorectpintimes= incorrectpintimes;
+  SetProcC(Name, MiddleName, LastName, CardNumber, Balance, PIN, Blocked, Incorectpintimes);
 
 }
-void ProcCenter::SetProcC(string name, string middleName, string lastName, string cardNumber, int balance, int pin)
+Sup::Sup()
+{
+  Name.clear();
+  MiddleName.clear();
+  LastName.clear();
+  NumCard = 0;
+  Balance = 0;
+  PIN = 0;
+  Blocked = 0;
+  incorrectPinTimes = 0;
+
+}
+void Sup::SetProcC(string name, string middlename, string lastname, int cardnumber, int balance, int pin, bool bloked, int incorrectpintimes)
 {
   Name = name;
-  MiddleName = middleName;
-  LastName = lastName;
-  CardNumber = cardNumber;
+  MiddleName = middlename;
+  LastName = lastname;
+  NumCard = cardnumber;
   Balance = balance;
   PIN = pin;
+  Blocked = bloked;
+  incorrectPinTimes = incorrectpintimes;
 
 }
-void ProcCenterVec::AddPerson()
+Sup& Sup::operator=(const Sup& a)
 {
-  string Name, MiddleName, LastName, CardNumber;
+  Name = a.Name;
+
+  MiddleName = a.MiddleName;
+
+  LastName = a.LastName;
+
+  NumCard = a.NumCard;
+  Balance = a.Balance;
+  PIN = a.PIN;
+  Blocked = a.Blocked;
+  incorrectPinTimes = a.incorrectPinTimes;
+  return *this;
+}
+void ProcCenter::AddPers()
+{
+  string Name, MiddleName, LastName;
   int Balance;
-  int PIN;
-  
+  int PIN, NumCard;
+  int incorrectPinTimes;
+  bool block = false;
+  Sup* personNew = new Sup[next + 1];
+  if (next != 0) {
+    for (int i = 0; i < next; ++i) {
+      personNew[i] = person[i];
+    }
+  }
   cout << endl;
   cout << "Имя: ";
   cin >> Name;
@@ -40,21 +81,76 @@ void ProcCenterVec::AddPerson()
   
   cout <<endl<<"Отчество: ";
   cin >> LastName;
-  
-  cout <<endl<<"NomerCard ";
-  cin >> CardNumber;
-  cout <<endl<<"Сколько денег на счету: ";
-  cin >> Balance;  
-  cout <<endl<<"PIN ";
-  cin >> PIN;
+  do {
+    cout << endl << "Номер карты: ";
+    cin >> NumCard;
+    if (!std::cin) {
+      cout << "Введите число." << endl;
+      throw logic_error("error");
+      std::cin.clear();
+      std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+    }
 
-  ProcCenter bufNabl(Name, MiddleName, LastName, CardNumber, Balance, PIN);
-  Vect.push_back(bufNabl);
+  }while(NumCard < 0001 || NumCard >9999);
+  cout <<endl<<"Баланс ";
+  cin >> Balance;  
+  PIN = -1;
+  string str;
+  do {
+    cout << endl << "PIN ";
+    cin >> PIN;
+    str = to_string(PIN);
+    if (!std::cin) {
+      cout << "Введите число." << endl;
+      throw logic_error("error");
+      std::cin.clear();
+      std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n'); 
+
+    }
+     } while (PIN < 0001 || PIN > 9999 || str.length() < 4);
+  cout << PIN;
+  incorrectPinTimes = 0;
+  
+  personNew[next].SetProcC(Name, MiddleName, LastName, NumCard, Balance, PIN, block, incorrectPinTimes);
+  next++;
+  person = personNew;
  
 }
-ProcCenterVec::ProcCenterVec(const ProcCenter& d)
+void ProcCenter::AddPers(Sup a)
 {
-  buff.push_back(d);
-  SetnameV(buff);
-  Vect.pop_back();
+  string Name, MiddleName, LastName;
+  int Balance;
+  int PIN, NumCard;
+  int incorrectPinTimes;
+  bool block;
+
+  Sup* personNew = new Sup[next + 1];
+  if (next != 0) {
+    for (int i = 0; i < next; ++i) {
+      personNew[i] = person[i];
+    }
+  }
+  Name = a.Name;
+
+  MiddleName = a.MiddleName;
+
+  LastName = a.LastName;
+
+  NumCard = a.NumCard;
+  Balance = a.Balance;
+  PIN = a.PIN;
+  block = a.Blocked;
+  incorrectPinTimes = a.incorrectPinTimes;
+
+  personNew[next].SetProcC(Name, MiddleName, LastName, NumCard, Balance, PIN, block, incorrectPinTimes);
+  next++;
+  person = personNew;
+
+
+}
+ProcCenter::ProcCenter(const Sup& d)
+{
+  person[next].SetProcC(d.Name,d.MiddleName,d.LastName,d.NumCard,d.Balance,d.PIN,d.Blocked,d.incorrectPinTimes);
+  next++;
+
 }

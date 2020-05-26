@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <conio.h>
 #include <stdio.h>
-#include <vector>
+#include <windows.h>
+#include <fstream>
 #include <algorithm>
 #include <functional>
 #include <time.h>
@@ -10,38 +12,45 @@
 
 using namespace std;
 
-class ProcCenter
+class Sup
 {
 public:
   friend class Bancomat;
-  friend class ProcCenterVec;
-  ProcCenter(string name, string MiddleName, string LastName, string CardNumber, int balance, int pin);
-  ~ProcCenter() {};
-  void SetProcC(string name, string MiddleName, string LastName, string CardNumber, int balance, int pin);
+  friend class ProcCenter;
+
+  Sup(string name, string MiddleName, string LastName, int CardNumber, int balance, int pin, bool Blocked, int incorrectpintimes);
+  Sup();
+  ~Sup() {};
+  void SetProcC(string name, string middlename, string lastname, int cardnumber, int balance, int pin, bool Blocked, int incorrectpintimes);
+  Sup& operator=(const Sup& a);
 
 private:
   string Name;
   string MiddleName;
   string LastName;
-  string CardNumber;
+  int NumCard;
   int Balance;
   int PIN;
+  bool Blocked;
   int incorrectPinTimes;
-};
-
-
-class ProcCenterVec {
-public:
-  friend class Bancomat;
-  friend class ProcCenter;
-  ProcCenterVec() {}
-  ~ProcCenterVec() {}
-  void AddPerson();
-  ProcCenterVec(const ProcCenter& d);
-  void SetnameV(vector <ProcCenter> pers) {
-    Vect = pers;
-  }
-private:
-  vector <ProcCenter> Vect;
+  
   
 };
+
+
+class ProcCenter {
+public:
+  friend class Bancomat;
+  friend class Sup;
+  ProcCenter() {}
+  ~ProcCenter() { delete[] person; }
+  void AddPers();
+  void AddPers(Sup a);
+  ProcCenter(const Sup& d);
+
+
+private:
+  Sup* person;
+  int next = 0;
+};
+
