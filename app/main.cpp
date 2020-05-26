@@ -1,6 +1,9 @@
-#include "add.h"
-#include <iostream>
-
+#include "BullsAndCows.h"
 int main() {
-  std::cout << "5 + 5 = " << add(5, 5) << std::endl;
+  setlocale(LC_CTYPE, "Russian");
+  int n=31246;
+  BullsCows a(n);
+  BullsCows b;
+  a.GameStart();
+  return 0;
 }
