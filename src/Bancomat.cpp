@@ -144,7 +144,6 @@ void Bancomat::BalancePerson(ProcCenter& c)
   }
   else
   {
-    //cout << "Карта не заблокирована" << endl;
   }
   Menu(c);
 }
