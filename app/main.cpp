@@ -1,6 +1,11 @@
-#include "add.h"
-#include <iostream>
-
+#include"roga_i_copita.h"
 int main() {
-  std::cout << "5 + 5 = " << add(5, 5) << std::endl;
+  setlocale(LC_CTYPE, "Russian");
+  int n=6872;
+  roga_i_copita a(n);
+  roga_i_copita b;
+  a.game1();
+  getchar();
+  getchar();
+  return 0;
 }
