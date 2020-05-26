@@ -47,6 +47,7 @@ void Client::set_Status(int Status) {
 
 ProcCenter::ProcCenter() {
 	Clients.reserve(1);
+	Card_num = 1;
 }
 
 Bankomat::Bankomat() {
@@ -57,6 +58,7 @@ Bankomat::Bankomat() {
 	this->rub_2000 = 1600;
 	this->rub_5000 = 1600;
 	this->Card_num = 1;
+	this->in_out = 0;
 }
 
 Bankomat::Bankomat(int rub_100, int rub_200, int rub_500, int rub_1000, int rub_2000, int rub_5000) {
@@ -137,48 +139,53 @@ void Bankomat::Accept_money(string Card_number, int money) {
 			if (Clients[Find_customer(Card_number)].get_Status() == 0) {
 				cout << "Ваша карта заблокирована!" << endl;
 				return;
-			} else if (rub_5000 < 2000 || rub_2000 < 2000 || rub_1000 < 2000 || rub_500 < 2000 || rub_200 < 2000 || rub_100 < 2000) {
-				if (money % 100 == 0) {
-					int tmp = money;
-					while (money % 5000 >= 0 && money >= 5000 && rub_5000 < 2000) {
-						rub_5000++;
-						money -= 5000;
-					}
-					while (money % 2000 >= 0 && money >= 2000 && rub_2000 < 2000) {
-						rub_2000++;
-						money -= 2000;
-					}
-					while (money % 1000 >= 0 && money >= 1000 && rub_1000 < 2000) {
-						rub_1000++;
-						money -= 1000;
-					}
-					while (money % 500 >= 0 && money >= 500 && rub_500 < 2000) {
-						rub_500++;
-						money -= 500;
-					}
-					while (money % 200 >= 0 && money >= 200 && rub_200 < 2000) {
-						rub_200++;
-						money -= 200;
-					}
-					while (money % 100 >= 0 && money >= 100 && rub_5000 < 2000) {
-						rub_100++;
-						money -= 100;
-					}
-					if (money != 0) {
-						cout << "Банкомат переполнен!" << endl << "Заберите оставшиеся деньги!" << endl;
-						Clients[Find_customer(Card_number)].set_Balance(money);
-						return;
+			}	else if (money <= 200000) {
+				if (rub_5000 < 2000 || rub_2000 < 2000 || rub_1000 < 2000 || rub_500 < 2000 || rub_200 < 2000 || rub_100 < 2000) {
+					if (money % 100 == 0) {
+						int tmp = money;
+						while (money % 5000 >= 0 && money >= 5000 && rub_5000 < 2000) {
+							rub_5000++;
+							money -= 5000;
+						}
+						while (money % 2000 >= 0 && money >= 2000 && rub_2000 < 2000) {
+							rub_2000++;
+							money -= 2000;
+						}
+						while (money % 1000 >= 0 && money >= 1000 && rub_1000 < 2000) {
+							rub_1000++;
+							money -= 1000;
+						}
+						while (money % 500 >= 0 && money >= 500 && rub_500 < 2000) {
+							rub_500++;
+							money -= 500;
+						}
+						while (money % 200 >= 0 && money >= 200 && rub_200 < 2000) {
+							rub_200++;
+							money -= 200;
+						}
+						while (money % 100 >= 0 && money >= 100 && rub_5000 < 2000) {
+							rub_100++;
+							money -= 100;
+						}
+						if (money != 0) {
+							cout << "Банкомат переполнен!" << endl << "Заберите оставшиеся деньги!" << endl;
+							Clients[Find_customer(Card_number)].set_Balance(money);
+							return;
+						}	else {
+							cout << "Деньги успешно зачислены на ваш счёт!" << endl;
+							Clients[Find_customer(Card_number)].set_Balance(tmp);
+							return;
+						}
 					}	else {
-						cout << "Деньги успешно зачислены на ваш счёт!" << endl;
-						Clients[Find_customer(Card_number)].set_Balance(tmp);
+						cout << "Допустимы только купюры номиналом 100, 200, 500, 1000, 2000, 5000!" << endl;
 						return;
 					}
 				} else {
-					cout << "Допустимы только купюры номиналом 100, 200, 500, 1000, 2000, 5000!" << endl;
+					cout << "Банкомат переполнен!" << endl;
 					return;
 				}
 			} else {
-				cout << "Банкомат переполнен!" << endl;
+				cout << "Максимальная сумма за одну операцию 200000 (40 купюр)" << endl;
 				return;
 			}
 		}
@@ -192,50 +199,55 @@ void Bankomat::Give_out_money(string Card_number, int money) {
 			if (Clients[Find_customer(Card_number)].get_Status() == 0) {
 				cout << "Ваша карта заблокирована!" << endl;
 				return;
-			} else if (money <= Clients[Find_customer(Card_number)].get_Balance()) {
-				if (rub_5000 > 0 || rub_2000 > 0 || rub_1000 > 0 || rub_500 > 0 || rub_200 > 0 || rub_100 > 0) {
-					if (money % 100 == 0) {
-						int tmp = money;
-						while (money % 5000 >= 0 && money >= 5000 && rub_5000 > 0) {
-							rub_5000--;
-							money -= 5000;
-						}
-						while (money % 2000 >= 0 && money >= 2000 && rub_2000 > 0) {
-							rub_2000--;
-							money -= 2000;
-						}
-						while (money % 1000 >= 0 && money >= 1000 && rub_1000 > 0) {
-							rub_1000--;
-							money -= 1000;
-						}
-						while (money % 500 >= 0 && money >= 500 && rub_500 > 0) {
-							rub_500--;
-							money -= 500;
-						}
-						while (money % 200 >= 0 && money >= 200 && rub_200 > 0) {
-							rub_200--;
-							money -= 200;
-						}
-						while (money % 100 >= 0 && money >= 100 && rub_5000 > 0) {
-							rub_100--;
-							money -= 100;
-						}
-						if (money != 0) {
-							cout << "К сожалению, в банкомате закончились наличные!" << endl << "Не забудтье забрать полученные деньги, остальная часть останется на вашем счету." << endl;
-							Clients[Find_customer(Card_number)].set_Balance(money - tmp);
-							return;
+			} else if (money <= 200000) {
+				if (money <= Clients[Find_customer(Card_number)].get_Balance()) {
+					if (rub_5000 > 0 || rub_2000 > 0 || rub_1000 > 0 || rub_500 > 0 || rub_200 > 0 || rub_100 > 0) {
+						if (money % 100 == 0) {
+							int tmp = money;
+							while (money % 5000 >= 0 && money >= 5000 && rub_5000 > 0) {
+								rub_5000--;
+								money -= 5000;
+							}
+							while (money % 2000 >= 0 && money >= 2000 && rub_2000 > 0) {
+								rub_2000--;
+								money -= 2000;
+							}
+							while (money % 1000 >= 0 && money >= 1000 && rub_1000 > 0) {
+								rub_1000--;
+								money -= 1000;
+							}
+							while (money % 500 >= 0 && money >= 500 && rub_500 > 0) {
+								rub_500--;
+								money -= 500;
+							}
+							while (money % 200 >= 0 && money >= 200 && rub_200 > 0) {
+								rub_200--;
+								money -= 200;
+							}
+							while (money % 100 >= 0 && money >= 100 && rub_5000 > 0) {
+								rub_100--;
+								money -= 100;
+							}
+							if (money != 0) {
+								cout << "К сожалению, в банкомате закончились наличные!" << endl << "Не забудтье забрать полученные деньги, остальная часть останется на вашем счету." << endl;
+								Clients[Find_customer(Card_number)].set_Balance(money - tmp);
+								return;
+							} else {
+								cout << "Деньги успешно выданы, не забудьте их забрать!" << endl;
+								Clients[Find_customer(Card_number)].set_Balance(-tmp);
+								return;
+							}
 						} else {
-							cout << "Деньги успешно выданы, не забудьте их забрать!" << endl;
-							Clients[Find_customer(Card_number)].set_Balance(-tmp);
+							cout << "Банкомат выдаёт купюры номиналом 100, 200, 500, 1000, 2000, 5000!" << endl;
 							return;
 						}
-					} 	else {
-						cout << "Банкомат выдаёт купюры номиналом 100, 200, 500, 1000, 2000, 5000!" << endl;
-						return;
 					}
+				} else {
+					cout << "На вашем счету недостаточно средств!" << endl;
+					return;
 				}
 			} else {
-				cout << "На вашем счету недостаточно средств!" << endl;
+				cout << "Максимальная сумма за одну операцию 200000 (40 купюр)" << endl;
 				return;
 			}
 		}
@@ -247,3 +259,14 @@ void Bankomat::Return_customer_card() {
 	this->in_out = 0;
 	cout << "Карта возвращена, не забудьте её забрать!" << endl;
 }
+
+bool operator==(const Client& left, const Client& right) {
+	if (left.Balance == right.Balance &&
+		left.Card_number == right.Card_number &&
+		left.Full_name == right.Full_name &&
+		left.Pin_code == right.Pin_code &&
+		left.Status == right.Status) {
+		return 1;
+	} else return 0;
+}
+

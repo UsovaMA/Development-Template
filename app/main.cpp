@@ -10,9 +10,10 @@ int main() {
 	a.Accept_customer_card("0002");
 	a.Accept_customer_card("0001");
 	a.Find_customer("0001");
-	a.Accept_money("0001", 700);
+	a.Accept_money("0001", 200000);
+	a.Accept_money("0001", 200000);
 	a.Show_balance("0001");
-	a.Give_out_money("0001", 5000);
+	a.Give_out_money("0001", 200000);
 	a.Show_balance("0001");
 	a.Return_customer_card();
 	return 0;

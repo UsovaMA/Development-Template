@@ -34,7 +34,7 @@ public:
 	const string get_Full_name() const { return Full_name; }
 	const int get_Status() const { return Status; }
 
-
+	friend bool operator==(const Client& left, const Client& right);
 };
 
 class ProcCenter {
@@ -43,10 +43,8 @@ protected:
 	int Card_num;
 public:
 	ProcCenter();
-
+	const vector<Client>& get_Clients() const { return Clients; };
 	void add_new_client(string Pin_code, string Full_name);
-
-
 };
 
 class Bankomat:public ProcCenter {
@@ -68,7 +66,9 @@ public:
 	void Accept_money(string Card_number, int money);
 	void Give_out_money(string Card_number, int money);
 	void Return_customer_card();
-};
 
+	const int get_in_out() const { return in_out; }
+	const int get_rub_5000() const { return rub_5000; }
+};
 
 #endif INCLUDE_CLASS_BANKOMAT_HPP_
