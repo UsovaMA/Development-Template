@@ -4,8 +4,6 @@
 
 using namespace std;
 
-char lastmove;
-int countForLastMove;
 int Xshift, Yshift;
 
 void Snake::start() {
@@ -35,13 +33,17 @@ void Snake::start() {
   setCursorPosition(snakeCoard[0].x, snakeCoard[0].y);
   cout << "@";
   spawnFruit();
-  lastmove = '0';
+  setCursorPosition(42, 1);
+  cout << "Control: WASD";
+  setCursorPosition(10, m + 5);
+  cout << "Score: 0";
   while (!gameover) {
     crs = _getch();
     move(getCourse(crs));
-    draw(getCourse(crs));
-    lastmove = crs;
   }
+  setCursorPosition(42, 3);
+  cout << "You lose =(";
+  setCursorPosition(0, m + 1);
 }
 
 void Snake::setCursorPosition(int x, int y) {
@@ -51,27 +53,29 @@ void Snake::setCursorPosition(int x, int y) {
   SetConsoleCursorPosition(hOut, coord);
 }
 
-void Snake::draw(int course) {
+void Snake::draw(int course, int XX, int YY) {
   int i;
   for (i = 0; i < size; ++i) {
     setCursorPosition(snakeCoard[i].x, snakeCoard[i].y);
     cout << snk[i];
   }
+
   switch (course) {
   case 1:
-    setCursorPosition(snakeCoard[size - 1].x + Xshift, snakeCoard[size - 1].y + Yshift);
+    setCursorPosition(XX, YY);
     cout << " ";
     break;
   case 2:
-    setCursorPosition(snakeCoard[size - 1].x + Xshift, snakeCoard[size - 1].y + Yshift);
+    setCursorPosition(XX, YY);
     cout << " ";
     break;
   case 3:
-    setCursorPosition(snakeCoard[size - 1].x + Xshift, snakeCoard[size - 1].y + Yshift);
+    //setCursorPosition(snakeCoard[size - 1].x + Xshift, snakeCoard[size - 1].y + Yshift);
+    setCursorPosition(XX, YY);
     cout << " ";
     break;
   case 4:
-   // setCursorPosition(snakeCoard[size - 1].x + Xshift, snakeCoard[size - 1].y + Yshift);
+    setCursorPosition(XX, YY);
     cout << " ";
     break;
   }
@@ -121,7 +125,9 @@ void Snake::move(int course) {
       Yshift = 0;
     }
 if (snakeCoard[0].x == fruit.x && snakeCoard[0].y == fruit.y) {
-  score++;
+  score+=10;
+  setCursorPosition(17, m + 5);
+  cout << score;
   size++;
   snakeCoard[i].y = snakeCoard[i - 1].y;
   snakeCoard[i].x = snakeCoard[i - 1].x;
@@ -151,7 +157,7 @@ for (i = 1; i < size; ++i)
   if (snakeCoard[i].x == snakeCoard[0].x
     && snakeCoard[i].y == snakeCoard[0].y)
     gameover = true;
-      
+draw(course, prevX, prevY);
 }
 
 

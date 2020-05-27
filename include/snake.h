@@ -41,12 +41,12 @@ class Snake {
   string snk = "@";
   Coard snakeCoard[100];
   Coard fruit;
-  int score;
+  int score = 0;
   bool gameover = false;
 public:
   void setCursorPosition(int y, int x);
   void start();
-  void draw(int course);
+  void draw(int course, int XX, int YY);
   void move(int course);
   void spawnFruit();
   int getCourse(char crs);
