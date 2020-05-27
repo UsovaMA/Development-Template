@@ -1,14 +1,19 @@
 #include <gtest/gtest.h>
-#include "add.h"
+#include "Snake.h"
 
-TEST(Addition, CanAddTwoPositiveNumbers) {
-  EXPECT_EQ(add(5, 5), 10);
+TEST(Snake, start) {
+  Zmeika s;
+  ASSERT_NO_THROW(s.Setup());
 }
 
-TEST(Addition, CanAddTwoNumbersDifferentSign) {
-  EXPECT_EQ(add(-5, 5), 0);
+TEST(Snake, errortrueSmall) {
+  Zmeika s;
+  int w = 1;
+  ASSERT_ANY_THROW(s.Logic(w));
 }
 
-TEST(Addition, CanAddTwoNegativeNumbers) {
-  EXPECT_EQ(add(-5, -5), -10);
+TEST(Snake, errortrueBig) {
+  Zmeika s;
+  int w = 200;
+  ASSERT_NO_THROW(s.Logic(w));
 }
