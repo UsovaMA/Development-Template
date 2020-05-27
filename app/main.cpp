@@ -2,14 +2,12 @@
 #include <iostream>
 
 int main() {
-  Octal res("0", 5);
+  Octal res("109", 3);
   //ofstream fout("output.txt");
  // fout << res;
  // fout.close();
-  ifstream fin("input.txt");
-  fin >> res;
   cout << res;
-  fin.close();
+  cout << res[2];
   system("pause");
 
 }

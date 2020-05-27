@@ -199,60 +199,93 @@ bool Octal::operator==(const Octal &c) {
   int i, flag = 0;
   if (_size == size)
     flag = 1;
-  for (i = 0; i < _size; ++i) {
+  for (i = 0; i < _size; ++i)
     if (num[i] != c.num[i])
       return false;
-  }
   if (flag) {
-    for (i; i < c.size; ++i) {
+    for (i; i < c.size; ++i)
       if (c.num[i] != '0')
         return false;
-    }
   }
   else {
-    for (i; i < size; ++i) {
+    for (i; i < size; ++i)
       if (num[i] != '0')
         return false;
-    }
   }
   return true;  // если дошли сюда, то числа равны
 }
 
 bool Octal::operator<(const Octal &c) {
   int _size = whatLowwer(size, c.size);
-  int i, flag = 0;
+  int i, flag = 0, flag2 = 0;
   if (_size == size)
     flag = 1;
-  for (i = 0; i < _size; ++i) {
-    if (num[i] > c.num[i])
-      return false;
-  }
-  if (!flag) {  // если число, которе должно быть меньше длиннее, то остальные
-    // его разряды должны быть равны 0
-    for (i; i < size; ++i) {
-      if (num[i] != '0')
+  if (c.size == size) {
+    for (i = _size - 2; i > 0; --i)
+      if (num[i] > c.num[i])
         return false;
+  } else {
+    for (i = 0; i < _size; ++i)
+      if (num[i] > c.num[i])
+        flag2 = 1;
+    if (flag2) {
+      if (flag) {
+        // если нашли в массиве что-то != 0 то он больше
+        for (i; i < c.size; ++i)
+          if (c.num[i] != '0')
+            return true;
+        return false;
+      }
+      else {
+        for (i; i < size; ++i) {
+          if (num[i] != '0')
+            return false;
+          return true;
+        }
+      }
+    } else {
+      if (!flag) {  // если число, которе должно быть меньше длиннее, то остальные
+    // его разряды должны быть равны 0
+        for (i; i < size; ++i) {
+          if (num[i] != '0')
+            return false;
+        }
+      }
     }
   }
-  return true;  // если дошли сюда, то числа равны
+  return true;
 }
 
 bool Octal::operator>(const Octal &c) {
   int _size = whatLowwer(size, c.size);
-  int i, flag = 0;
+  int i, flag = 0, flag2 = 0;
   if (_size == size)
     flag = 1;
-  for (i = 0; i < _size; ++i) {
-    if (num[i] < c.num[i])
-      return false;
-  }
-  if (flag) {  // если число, которе должно быть меньше длиннее, то остальные
-    // его разряды должны быть равны 0
-    for (i; i < c.size; ++i) {
-      if (c.num[i] != '0')
+  if (c.size == size) {
+    for (i = _size - 2; i > 0; --i)
+      if (num[i] < c.num[i])
         return false;
+  } else {
+    for (i = 0; i < _size; ++i)
+      if (num[i] < c.num[i])
+        flag2 = 1;
+    if (flag2) {
+      if (flag) {
+        // если нашли в массиве что-то != 0 то он больше
+        for (i; i < c.size; ++i)
+          if (c.num[i] != '0')
+            return false;
+        return true;
+      } else {
+        for (i; i < size; ++i) {
+          if (num[i] != '0')
+            return true;
+        return false;
+        }
+      }
     }
-  }
+  }              
+  return true;
 }
 
 bool operator<(const Octal &c1, const Octal &c2) {
@@ -272,6 +305,7 @@ bool operator<(const Octal &c1, const Octal &c2) {
     }
   }
   return true;  // если дошли сюда, то числа равны
+
 }
 
 bool operator>(const Octal &c1, const Octal &c2) {
@@ -290,6 +324,7 @@ bool operator>(const Octal &c1, const Octal &c2) {
         return false;
     }
   }
+  return true;
 }
 
 
@@ -319,10 +354,10 @@ bool operator==(const Octal &c1, const Octal &c2) {
 }
 
 unsigned char& Octal::operator[](const int index) {
-  if (index < 0 || index >= this->size) {  // защита от выхода из диапазона
-    cout << "!!! Out of range, returned [0] element !!!" << endl;
-    return num[0];
-  }
+  if (index < 0)  // защита от выхода из диапазона
+    throw logic_error("Input error: index cannot be negative value.");
+  if (index >= this->size)
+    throw out_of_range("Input error: index is out of range.");
   return num[index];
 }
 
