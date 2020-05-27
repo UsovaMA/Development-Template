@@ -1,68 +1,20 @@
-#include<iostream>
-#include<iomanip>
-#include<fstream>
-#include "Polynom.h"
+#include "Date.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 
-int main()
-{
-	setlocale(LC_ALL, "");
-	int n, c, m;
-	double x;
-	cout << "Откуда считывать коэффициенты? 1- из файла, 2- с клавиатуры" << endl;
-	cin >> c;
-	cout << "Введите степень полинома A и степень полинома B:" << '\n';
-	cin >> n >> m;
-	Polynom A(n);
-	Polynom B(m);
-	Polynom D;
-	Polynom C;
-	ifstream ifs;
-	ofstream ofs;
-	switch (c) {
-	case 1:
-		ifs.open("Polynom.txt");
-
-		if (!ifs.is_open())
-		{
-			cout << "ошибка файла ";
-		}
-		else
-		{
-
-			ifs >> x;
-			ifs >> A;
-			ifs >> B;
-
-		}
-		break;
-	case 2:
-		cout << "Введите коэфициенты полинома A:" << '\n';
-		cin >> A;
-		cout << "Введите коэфициенты полинома B:" << '\n';
-		cin >> B;
-		cout << "Введите значение х:" << '\n';
-		cin >> x;
-
-	}
-
-
-	cout << "Многочлен А:" << A << '\n';
-	cout << "Многочлен B:" << B << '\n';
-
-	cout << "Многочлен D=A+B:" << (D = A + B) << '\n';
-
-	cout << "Производная от A:" << A.derivative() << '\n';
-
-
-
-	cout << "Значение полинома в точке " << x << " = " << A.Calculate(x) << '\n';
-	ofs.open("Polynom.txt");
-	ofs << "Многочлен А:" << A << "\n";
-	ofs << "Многочлен B:" << B << "\n";
-	ofs << "Многочлен D=A+B:" << D << "\n";
-	ofs << "Производная от A : " << A.derivative() << "\n";
-	ofs << "Значение полинома в точке " << x << " = " << A.Calculate(x) << "\n";
-	ofs.close();
-
+int main() {
+	Date D1, D2(25, 2, 2020), D3(D2), D4("15.7.1990"), D5, D6;
+	cout << "Success" << endl;
+	cout << D2 << endl;
+	D1 = D2 + D3;
+	cout << D1 << endl;
+	cout << D4 << endl;
+	D4 = D4 + 75;
+	cout << D4 << endl;
+	D5 = D1 - 365;
+	cout << D5 << endl;
+	cin >> D6;
+	cout << endl << D6 << endl;
 	system("pause");
 }
