@@ -1,13 +1,13 @@
-#include "octal.h"
+#include "snake.h"
 #include <iostream>
 
-int main() {
-  Octal res("109", 3);
-  //ofstream fout("output.txt");
- // fout << res;
- // fout.close();
-  cout << res;
-  cout << res[2];
-  system("pause");
+using namespace std;
 
+int main() {  
+  Snake x;
+  string s = "0000";
+  char crs;
+  
+  x.start();
+  system("pause");
 }
