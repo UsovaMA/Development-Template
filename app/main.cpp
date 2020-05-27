@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 #include "add.h"
 #include <iostream>
 
@@ -6,6 +7,8 @@ int main() {
   std::cout << "5 + 5 = " << add(5, 5) << std::endl;
 }
 =======
+=======
+>>>>>>> Stashed changes
 #include <fstream>
 #include <iostream>
 #include "Pedometr.h"
@@ -13,6 +16,7 @@ int main() {
 using namespace std;
 
 int main() {
+<<<<<<< Updated upstream
 
   int data[3];
   int tSt[2];
@@ -29,6 +33,20 @@ int main() {
   cin >> steps;
 
  
+
+  return 0;
+}
+>>>>>>> Stashed changes
+=======
+  bool i = 1;
+  Pedometr time;
+
+  while (i) {
+    time.menu();
+    cout << endl << "Return menu?" << endl << "(1)Yes  (0)No";
+    cin >> i;
+    cout << endl << endl;
+  }
 
   return 0;
 }
